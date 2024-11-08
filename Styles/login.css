@@ -1,0 +1,99 @@
+section{
+    padding: 0;
+}
+.first {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden; 
+}
+h1{
+    font-size: 18em;
+    color: #000000;
+    position: absolute;
+    margin-top: -10%;
+    left: 15%;
+    opacity: 40%;
+}
+.first::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(../assets/paddy.jpg);
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px); 
+    z-index: -1; 
+}
+
+.first .login, .first .signup {
+    position: absolute;
+    width: 350px;
+    height: 450px;  
+    background-color: #ffffff;
+    left: 50%;          
+    top: 50%;  
+    border-radius: 10%;        
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  
+    align-items: center;  
+    padding: 80px 20px 20px 20px; 
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+
+.first .login label, .first .signup label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    width: 100%;
+    text-align: left;
+}
+
+
+.first .login input[type="email"],
+.first .login input[type="password"],
+.first .signup input[type="email"],
+.first .signup input[type="password"],
+.first .signup select {
+    width: 100%;
+    margin-bottom: 15px; 
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+
+.first .login .loginbtn, .first .signup .signupbtn {
+    background-color: #000;
+    color: #fff;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    align-self: center; 
+    margin-top: 20px;  
+    cursor: pointer;
+}
+
+.first .login p, .first .signup p {
+    font-size: 0.8em;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.first .login p span a, .first .signup p span a {
+    color: #1703f0;
+    text-decoration: none;
+}
