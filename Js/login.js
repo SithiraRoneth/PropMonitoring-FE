@@ -18,7 +18,7 @@ function showLogin() {
             signup.style.display='none'
 }
 $('#loginbtn').click(function() {
-     window.location.href="index2.html";
+     window.location.href="index.html";
     // document.getElementById('section-login').style.display = 'none'
     // document.getElementById('dashboard-section').style.display = 'block' 
 });
