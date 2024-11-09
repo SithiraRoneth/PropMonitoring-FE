@@ -82,12 +82,26 @@ section {
 .dash .navbar .staff{
     top: 56%;
 }
-
-.widgets .crop-selector{
+.dash .navbar .logout img{
     position: absolute;
-    width: 300px;
+    top: 92%;
+    left: 5%;
+    width: 35px;
+    height: auto;
+}
+/* crop selector */
+.widgets .crop-selector,
+.widgets .field-selector,
+.widgets .vehicle-selector,
+.widgets .equipment-selector,
+.widgets .staff-selector
+{
+    position: absolute;
+    width: 1100px;
     height: 95vh;
-    background-color: #000;
-    top: 2%;
-    left: 35%;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.8);
+    top: 2.5%;
+    left: 25%;
+    border-radius: 20px 20px 20px 20px;
 }

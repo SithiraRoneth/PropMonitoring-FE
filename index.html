@@ -10,26 +10,33 @@
     <section class="dash">
         <div class="navbar">
             <div class="profile">
-                <img src="assets/profile.png" alt="">
+                <img src="assets/profile.png" alt="Profile">
             </div>
             <div class="crop">
-                <button onclick="goCrop()">Crop</button>
+                <button onclick="showSection('crop')">Crop</button>
             </div>
             <div class="field">
-                <button onclick="goField()">Field</button>
+                <button onclick="showSection('field')">Field</button>
             </div>
             <div class="vehicle">
-                <button onclick="goVehicle()">Vehicle</button>
+                <button onclick="showSection('vehicle')">Vehicle</button>
             </div>
             <div class="equipment">
-                <button onclick="goEquip()">Equipment</button>
+                <button onclick="showSection('equipment')">Equipment</button>
             </div>
             <div class="staff">
-                <button onclick="goStaff()">Staff</button>
+                <button onclick="showSection('staff')">Staff</button>
+            </div>
+            <div class="logout">
+                <img src="assets/logout.png" alt="Logout" onclick="logout()">
             </div>
         </div>
         <div class="widgets">
             <div class="crop-selector" id="crop"></div>
+            <div class="field-selector" id="field"></div>
+            <div class="vehicle-selector" id="vehicle"></div>
+            <div class="equipment-selector" id="equipment"></div>
+            <div class="staff-selector" id="staff"></div>
         </div>
     </section>
     <script src="assets/jquery-3.7.1.min.js"></script>

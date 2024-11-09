@@ -1,7 +1,14 @@
-let crop = document.getElementById('crop'); 
-crop.style.display = 'none';
+const sections = ['crop', 'field', 'vehicle', 'equipment', 'staff'];
+    sections.forEach(section => document.getElementById(section).style.display = 'none');
 
-function goCrop(){
-    console.log("hello");
-    crop.style.display = 'block';
-}
+    function showSection(selectedSection) {
+        sections.forEach(section => {
+            document.getElementById(section).style.display = section === selectedSection ? 'block' : 'none';
+        });
+    }
+
+    function logout() {
+        if (confirm("Are you sure you want to log out?")) {
+            window.location.href = 'login-signup.html';
+        }
+    }
