@@ -3,8 +3,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="Styles/dash.css">
+    <link rel="stylesheet" href="assets/normalize.css">
 </head>
 <body>
-    <h1>Dashboard</h1>
+    <section class="dash">
+        <div class="navbar">
+            <div class="profile">
+                <img src="assets/profile.png" alt="">
+            </div>
+            <div class="crop">
+                <button onclick="goCrop()">Crop</button>
+            </div>
+            <div class="field">
+                <button onclick="goField()">Field</button>
+            </div>
+            <div class="vehicle">
+                <button onclick="goVehicle()">Vehicle</button>
+            </div>
+            <div class="equipment">
+                <button onclick="goEquip()">Equipment</button>
+            </div>
+            <div class="staff">
+                <button onclick="goStaff()">Staff</button>
+            </div>
+        </div>
+        <div class="widgets">
+            <div class="crop-selector" id="crop"></div>
+        </div>
+    </section>
+    <script src="assets/jquery-3.7.1.min.js"></script>
+    <script src="Js/navigaton.js"></script>
 </body>
 </html>
