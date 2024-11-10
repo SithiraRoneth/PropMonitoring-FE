@@ -97,11 +97,11 @@ section {
 .widgets .staff-selector
 {
     position: absolute;
-    width: 1100px;
+    width: 1150px;
     height: 95vh;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.8);
     top: 2.5%;
-    left: 25%;
+    left: 23%;
     border-radius: 20px 20px 20px 20px;
 }
