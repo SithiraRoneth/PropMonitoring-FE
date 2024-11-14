@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="Css/bootstrap.min.css" />
-    <link rel="stylesheet" href="Css/bootstrap-icons.css">
     <link rel="stylesheet" href="Css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="Css/style.css" />
+    <link rel="stylesheet" href="Styles/crop.css">
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
     <title>Dashboard</title>
   </head>
   <body>
@@ -25,7 +27,7 @@
           <a
             class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold"
             href="#"
-            >Dashboard</a
+            ><img src="assets/icons/windmil.png" alt="" width="40px">AGRO</a
           >
           <button
             class="navbar-toggler"
@@ -41,73 +43,64 @@
           <div class="collapse navbar-collapse" id="topNavBar">
             <form class="d-flex ms-auto my-3 my-lg-0">
               <div class="input-group">
-                <input
-                  class="form-control"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-                <button class="btn btn-primary" type="submit">
-                  <i class="bi bi-search"></i>
-                </button>
-              </div>
-            </form>
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown- ms-2"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                 
-                >
-                  <i class="bi bi-person-fill"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" onclick="showSection('profile')">Profile</a></li>
-                    <li><a class="dropdown-item" onclick="logout()">Logout</a></li>
+                <ul class="navbar-nav">
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown- ms-2"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                     
+                    >
+                      <i><img src="assets/profile.png" alt="" style="width: 35px;height: auto;"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" onclick="showSection('profile')">Profile</a></li>
+                        <li><a class="dropdown-item" onclick="logout()">Logout</a></li>
+                    </ul>
+                  </li>
                 </ul>
-              </li>
-            </ul>
+            </form>
           </div>
         </div>
       </nav>
-    <div class="offcanvas offcanvas-start sidebar-nav bg-success" tabindex="-1" id="sidebar">
-      <div class="offcanvas-body p-10">
+    <div class="offcanvas offcanvas-start sidebar-nav bg-success" tabindex="-1" id="sidebar" style="width: 250px;">
+      <div class="offcanvas-body p-10" style="margin-top: 30%;">
         <nav class="navbar-dark">
           <ul class="navbar-nav">
+            <li class="my-2"><hr class="dropdown-divider bg-light" /></li>
             <li>
                 <a href="#" class="nav-link px-3 active" onclick="showSection('crop')">
-                    <span class="me-2"><i class="bi bi-leaf"></i></span>
-                    <span>Crop</span>
+                    <span class="me-2"><i><img src="assets/icons/crops.png" alt="" width="30px;height:auto"></i></span>
+                    <span >Crop</span>
                 </a>
             </li>
             <li class="my-2"><hr class="dropdown-divider bg-light" /></li>
             <li>
                 <a href="#" class="nav-link px-3 active" onclick="showSection('field')">
-                    <span class="me-2"><i class="bi bi-tractor"></i></span>
+                    <span class="me-2"><i><img src="assets/icons/field.png" alt="" width="30px"></i></span>
                     <span>Field</span>
                 </a>
             </li>
             <li class="my-2"><hr class="dropdown-divider bg-light" /></li>
             <li>
                 <a href="#" class="nav-link px-3 active" onclick="showSection('vehicle')">
-                    <span class="me-2"><i class="bi bi-car-front"></i></span>
+                    <span class="me-2"><i><img src="assets/icons/tractor.png" alt="" width="30px"></i></span>
                     <span>Vehicle</span>
                 </a>
             </li>
             <li class="my-2"><hr class="dropdown-divider bg-light" /></li>
             <li>
                 <a href="#" class="nav-link px-3 active" onclick="showSection('equipment')">
-                    <span class="me-2"><i class="bi bi-tools"></i></span>
+                    <span class="me-2"><i><img src="assets/icons/hoe.png" alt="" width="30px"></i></span>
                     <span>Equipment</span>
                 </a>
             </li>
             <li class="my-2"><hr class="dropdown-divider bg-light" /></li>
             <li>
                 <a href="#" class="nav-link px-3 active" onclick="showSection('staff')">
-                    <span class="me-2"><i class="bi bi-person-fill"></i></span>
+                    <span class="me-2"><i><img src="assets/icons/staff.png" alt="" width="30px"></i></span>
                     <span>Staff</span>
                 </a>
             </li>            
@@ -117,18 +110,78 @@
     </div>
     <!-- forms -->
     <main class="mt-5 pt-3">
-        <div class="container-fluid" id="profile">
-            <h1>Profile</h1>
-        </div>
-            <div class="container-fluid" id="crop">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
+             <div class="container" id="profile">
+                <h1>Profile</h1>
+            </div>
+            <!-- Crop Secrtion -->
+            <div class="container-fluid  crop-container" id="crop">
+              <section>
+                  <!--///////////////////////////////////-->
+                    <section class="col-lg-10 col-12 vh-75 bg-body">
+                      <div>
+                        <div class="row mt-2">
+                          
+                          <!-- First Form Group Column -->
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label class="mt-2">Crop Code</label>
+                              <input class="form-control mt-2" id="txtcropcode" type="text">
+                            </div>
+                    
+                            <div class="form-group">
+                              <label class="mt-2">Crop Name</label>
+                              <input class="form-control mt-2" id="txtcropname" type="text">
+                            </div>
+                    
+                            <div class="form-group">
+                              <label class="mt-2">Scientific Name</label>
+                              <input class="form-control mt-2" id="txtscientific" type="text">
+                            </div>
+                          </div>
+                    
+                          <!-- Second Form Group Column -->
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label class="mt-2" class="form-label">Crop Image</label>
+                              <input class="form-control mt-2" type="file" id="txtimage">
+                            </div>
+                          
+                            <div class="form-group">
+                              <label class="mt-2">Category</label>
+                              <input class="form-control mt-2" id="txtcategory" type="text">
+                            </div>
+                    
+                            <div class="form-group">
+                              <label class="mt-2">Season</label>
+                              <input class="form-control mt-2" id="txtseason" type="text">
+                            </div>
+                          </div>
+                    
+                          <!-- Third Form Group Column -->
+                          <!-- Third Form Group Column -->
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label class="mt-2">Field Code</label>
+                              <input class="form-control mt-2" id="txtFiled" type="date">
+                          </div>
+
+                          <!-- Button Group directly under Field Code -->
+                          <div class="mt-2 text-end" style="width: 100%; margin-top: 10%;">
+                            <button type="button" class="btn btn-outline-success" id="btnCropSave">Save</button>
+                            <button type="button" class="btn btn-outline-warning" id="btnCropUpdate">Update</button>
+                            <button type="button" class="btn btn-outline-danger" id="btnCropDelete">Delete</button>
+                          </div>
+                        </div>
+                        <div id="cropCardsContainer" class="row mt-4">
+                          <!-- New crop cards will be appended here dynamically -->
+                        </div>
+                        </div>
+                      </div>
+                    </section>
+                    
+                    
+                </section>
+            </section>
             </div>
             <div class="container-fluid" id="field">
                 <h1>Field</h1>
@@ -145,10 +198,11 @@
     </main>
     <script src="Js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
-    <script src="Js/jquery-3.5.1.js"></script>
+    <script src="assets/jquery-3.7.1.min.js"></script>
     <script src="./js/jquery.dataTables.min.js"></script>
     <script src="./js/dataTables.bootstrap5.min.js"></script>
     <script src="./js/script.js"></script>
     <script src="Js/navigaton.js"></script>
+    <script src="Js/controller/cropController.js"></script>
   </body>
 </html>

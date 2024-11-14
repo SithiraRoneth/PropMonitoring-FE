@@ -1,40 +1,16 @@
-.crop-selector .form-input{
-  position: absolute;
-  padding: 20px; 
-  max-width: 400px; 
-  top: 5%;
-  left: 5%;
+.crop-container .div{
+    position: absolute;
 }
-.crop-selector .form-input .intro,
-.crop-selector .form-input .intro2
-{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.crop-container .line1,
+.crop-container .line2,
+.crop-container .line3{
+    position: absolute;
+    width: 350px;
+    margin-top: 3%;
 }
-.crop-selector .form-input .intro label,
-.crop-selector .form-input .intro2 label{
-  color: black;
-  font-size: 1em;
-  font-weight: bold;
+.crop-container .line2{
+   left: 45%;
 }
-.crop-selector .form-input .intro input,
-.crop-selector .form-input .intro2 input{
-  background: none;
-  border: none;
-  width: 300px;
-  border-bottom: 1px solid black; 
-  color: black;
-  font-size: 1em;
-  padding: 5px 0; 
-}
-.crop-selector .form-input .intro input:focus ,
-.crop-selector .form-input .intro2 input:focus{
-  outline: none;
-  border-bottom: 1px solid #000; 
-}
-.crop-selector .form-input .intro2{
-  position: absolute;
-  top: 7%;
-  left: 150%;
+.crop-container .line3{
+    left: 72%;
 }
