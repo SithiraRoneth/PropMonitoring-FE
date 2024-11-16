@@ -13,7 +13,13 @@
     <title>Dashboard</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(
+      45deg,
+      rgba(22, 168, 127, 1) 41%,
+      rgba(32, 178, 7, 1) 45%,
+      rgba(43, 140, 79, 1) 75%
+    );
+    background-blend-mode: normal;">
         <div class="container-fluid">
           <button
             class="navbar-toggler"
@@ -65,7 +71,13 @@
           </div>
         </div>
       </nav>
-    <div class="offcanvas offcanvas-start sidebar-nav bg-success" tabindex="-1" id="sidebar" style="width: 250px;">
+    <div class="offcanvas offcanvas-start sidebar-nav bg-success" tabindex="-1" id="sidebar" style="width: 220px;margin-top: 0.7%; background: linear-gradient(
+      45deg,
+      rgba(32, 178, 7, 1) 31%,
+      rgba(43, 140, 79, 1) 53%,
+      rgba(22, 168, 127, 1) 86%
+    );
+    background-blend-mode: normal;">
       <div class="offcanvas-body p-10" style="margin-top: 30%;">
         <nav class="navbar-dark">
           <ul class="navbar-nav">
@@ -103,7 +115,15 @@
                     <span class="me-2"><i><img src="assets/icons/staff.png" alt="" width="30px"></i></span>
                     <span>Staff</span>
                 </a>
-            </li>            
+            </li>    
+            <li class="my-2"><hr class="dropdown-divider bg-light" /></li>      
+            <li>
+              <a href="#" class="nav-link px-3 active" onclick="showSection('records')">
+                  <span class="me-2"><i><img src="assets/icons/recors.png" alt="" width="30px"></i></span>
+                  <span>Records</span>
+              </a>
+            </li>  
+            <li class="my-2"><hr class="dropdown-divider bg-light" /></li>     
           </ul>
         </nav>
       </div>
@@ -113,7 +133,7 @@
              <div class="container" id="profile">
                 <h1>Profile</h1>
             </div>
-            <!-- Crop Secrtion -->
+            <!-- Crop Section -->
             <div class="container-fluid  crop-container" id="crop">
               <section>
                   <!--///////////////////////////////////-->
@@ -131,60 +151,137 @@
                             <div class="form-group">
                               <label class="mt-2">Crop Name</label>
                               <input class="form-control mt-2" id="txtcropname" type="text">
+                              <small id="invalidName" class="text-danger">Invalid Name</small>
                             </div>
                     
                             <div class="form-group">
                               <label class="mt-2">Scientific Name</label>
                               <input class="form-control mt-2" id="txtscientific" type="text">
+                              <small id="invalidScientific" class="text-danger">Invalid Scientific Name</small>
                             </div>
                           </div>
                     
                           <!-- Second Form Group Column -->
                           <div class="col-md-4">
                             <div class="form-group">
-                              <label class="mt-2" class="form-label">Crop Image</label>
+                              <label class="form-label mt-2">Crop Image</label>
                               <input class="form-control mt-2" type="file" id="txtimage">
-                            </div>
+                              <img id="imagePreview" src="" alt="Image Preview" style="max-width: 50%; margin-top: 10px; display: none;">
+                          </div>
+                          
                           
                             <div class="form-group">
                               <label class="mt-2">Category</label>
                               <input class="form-control mt-2" id="txtcategory" type="text">
+                              <small id="invalidCateogry" class="text-danger">Invalid Category</small>
                             </div>
                     
                             <div class="form-group">
                               <label class="mt-2">Season</label>
                               <input class="form-control mt-2" id="txtseason" type="text">
+                              <small id="invalidSeason" class="text-danger">Invalid Season</small>
                             </div>
                           </div>
                     
+                          
                           <!-- Third Form Group Column -->
-                          <!-- Third Form Group Column -->
-                          <div class="col-md-4">
+                          <!-- <div class="col-md-4">
                             <div class="form-group">
                               <label class="mt-2">Field Code</label>
-                              <input class="form-control mt-2" id="txtFiled" type="date">
-                          </div>
+                              <select class="form-select" aria-label="Default select example" id="txtFeild">
+                                <option selected>Select Field Code</option>
+                                
+                              </select>
+                          </div> -->
 
                           <!-- Button Group directly under Field Code -->
-                          <div class="mt-2 text-end" style="width: 100%; margin-top: 10%;">
+                          <div class="mt-2 text-end" style="width: 100%;">
                             <button type="button" class="btn btn-outline-success" id="btnCropSave">Save</button>
                             <button type="button" class="btn btn-outline-warning" id="btnCropUpdate">Update</button>
                             <button type="button" class="btn btn-outline-danger" id="btnCropDelete">Delete</button>
                           </div>
                         </div>
-                        <div id="cropCardsContainer" class="row mt-4">
-                          <!-- New crop cards will be appended here dynamically -->
-                        </div>
+                        <!-- Append crop card dyanamically -->
+                        <div id="cropCardsContainer" class="row mt-4"></div>
                         </div>
                       </div>
                     </section>
-                    
-                    
                 </section>
             </section>
             </div>
             <div class="container-fluid" id="field">
-                <h1>Field</h1>
+              <section>
+                <!--///////////////////////////////////-->
+                <section class="col-lg-10 col-12 vh-75 bg-body">
+                  <div>
+                    <div class="row mt-2">
+                      
+                      <!-- First Form Group Column -->
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="mt-2">Field Code</label>
+                          <input class="form-control mt-2" id="txtfieldcode" type="text">
+                        </div>
+            
+                        <div class="form-group">
+                          <label class="mt-2">Field Name</label>
+                          <input class="form-control mt-2" id="txtfieldname" type="text">
+                        </div>
+            
+                        <div class="form-group">
+                          <label class="mt-2">Field Location</label>
+                          <input class="form-control mt-2" id="txtfieldlocation" type="text">
+                        </div>
+                      </div>
+            
+                      <!-- Second Form Group Column -->
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="mt-2">Field Size</label>
+                          <input class="form-control mt-2" id="txtsize" type="text">
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="form-label mt-2">Field Image 1</label>
+                          <input class="form-control mt-2" type="file" id="txtimage1">
+                          <img id="imagePreview" src="" alt="Image Preview" style="max-width: 50%; margin-top: 10px; display: none;">
+                        </div>
+            
+                        <div class="form-group">
+                          <label class="form-label mt-2">Field Image 2</label>
+                          <input class="form-control mt-2" type="file" id="txtimage2">
+                          <img id="imagePreview" src="" alt="Image Preview" style="max-width: 50%; margin-top: 10px; display: none;">
+                        </div>
+                      </div>
+            
+                      <!-- New Third Form Group Column -->
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="mt-2">Crop</label>
+                            <select class="form-select mt-2" id="selectAdditionalField">
+                              <option value="" disabled selected>Select a Crop</option>
+                              <option value="option1">Option 1</option>
+                              <option value="option2">Option 2</option>
+                              <option value="option3">Option 3</option>
+                            </select>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Button Group directly under Field Code -->
+                    <div class="mt-2 text-end" style="width: 100%;">
+                      <button type="button" class="btn btn-outline-success" id="btnCropSave">Save</button>
+                      <button type="button" class="btn btn-outline-warning" id="btnCropUpdate">Update</button>
+                      <button type="button" class="btn btn-outline-danger" id="btnCropDelete">Delete</button>
+                    </div>
+                    
+                    <!-- Append crop card dynamically -->
+                    <div id="cropFieldContainer" class="row mt-4"></div>
+                  </div>
+                </section>
+              </section>
+            </div>
+            
             </div>
             <div class="container-fluid" id="vehicle">
                 <h1>Vehicle</h1>
@@ -195,6 +292,41 @@
             <div class="container-fluid" id="staff">
                 <h1>Staff</h1>
             </div>
+            <div class="container-fluid" id="records">
+              <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; border-radius: 20px 20px 20px 20px;margin-top: 2%; margin-right: 2%;">
+                <input 
+                    type="text" 
+                    id="dateSearch" 
+                    placeholder="Search by Date..." 
+                    style="flex: 1; min-width: 200px; padding: 10px; font-size: 16px;"
+                />
+                <button 
+                    id="searchButton" 
+                    style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #3b06fa; color: white; border: none; border-radius: 4px; flex-shrink: 0;border-radius: 50px 50px 50px 50px;">
+                    <i><img src="assets/icons/search.png" alt="" width="30px"></i>
+                </button>
+            </div>
+        
+            <!-- Table -->
+            <div style="overflow-x: auto;"> <!-- Add scroll for smaller screens -->
+                <table class="table table-success table-striped" style="width: 100%; margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th scope="col" id="tblDate">Date</th>
+                            <th scope="col" id="tblEmail">Email</th>
+                            <th scope="col" id="tblUpdate">Monitoring Log Id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-11-16</td>
+                            <td>Mark Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          
     </main>
     <script src="Js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
@@ -204,5 +336,8 @@
     <script src="./js/script.js"></script>
     <script src="Js/navigaton.js"></script>
     <script src="Js/controller/cropController.js"></script>
+
+    <script src="Js/controller/validations/commonFunction.js"></script>
+    <script src="Js/controller/validations/cropValidation.js"></script>
   </body>
 </html>

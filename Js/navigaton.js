@@ -1,4 +1,4 @@
-const sections = ['profile','crop', 'field', 'vehicle', 'equipment', 'staff'];
+const sections = ['profile','crop', 'field', 'vehicle', 'equipment', 'staff','records'];
 
 // Initially hide all sections
 document.addEventListener("DOMContentLoaded", () => {

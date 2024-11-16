@@ -1,9 +1,8 @@
 const crop = {}; 
 const cropDB = []; 
-let selectedCropIndex = null; // Keeps track of the crop selected for editing
+let selectedCropIndex = null; 
 
 $("#btnCropSave").click(function(){
-    // Collecting values from input fields
     let cropcode = $('#txtcropcode').val();
     let cropname = $('#txtcropname').val();
     let scientificname = $('#txtscientific').val();
@@ -30,6 +29,7 @@ $("#btnCropSave").click(function(){
                 renderCropCards();
             };
             reader.readAsDataURL(cropimageFile);
+            clearAllCrop()
         }
         $.ajax({
             url: "http://localhost:5050/crops",
@@ -93,6 +93,7 @@ $("#btnCropUpdate").click(function() {
         updatedCrop.cropCode = cropcode;
         updatedCrop.cropName = cropname;
         updatedCrop.scientificName = scientificname;
+        updatedCrop.cropImage = cropimageFile;
         updatedCrop.category = category;
         updatedCrop.season = cropseason;
         updatedCrop.fieldCode = fieldcode;
@@ -183,7 +184,9 @@ function clearAllCrop() {
     $('#txtcategory').val('');
     $('#txtseason').val('');
     $('#txtFiled').val('');
+    $('#imagePreview').hide();
 }
+
 
 function renderCropCards() {
     $('#cropCardsContainer').empty();
@@ -206,19 +209,27 @@ function renderCropCards() {
         $('#cropCardsContainer').append(newCard);
     });
 
-    // Add event listener to each card
     $(".crop-card").click(function() {
         selectedCropIndex = $(this).data("index");
         const selectedCrop = cropDB[selectedCropIndex];
-
-        // Populate form fields with crop data
+    
+        
         $('#txtcropcode').val(selectedCrop.cropCode);
         $('#txtcropname').val(selectedCrop.cropName);
         $('#txtscientific').val(selectedCrop.scientificName);
         $('#txtcategory').val(selectedCrop.category);
         $('#txtseason').val(selectedCrop.season);
         $('#txtFiled').val(selectedCrop.fieldCode);
-
+    
+        
+        if (selectedCrop.cropImage) {
+            $('#imagePreview').attr('src', selectedCrop.cropImage).show();
+        } else {
+            $('#imagePreview').hide();
+        }
+    
         console.log("Selected crop for update:", selectedCrop);
     });
+    
+    
 }

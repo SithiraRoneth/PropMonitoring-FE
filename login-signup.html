@@ -23,10 +23,12 @@
         </div>
         <div class="signup" id="signupDiv" style="display: none;">
             <label for="signup-email">Email</label>
-            <input type="email" id="signup-email" placeholder="Enter your email">
+            <input type="email" id="txtemail" placeholder="Enter your email">
+            <small id="invalidEmail" style="color: red;">Invalid Email</small>
             
             <label for="signup-password">Password</label>
-            <input type="password" id="signup-password" placeholder="Enter your password">
+            <input type="password" id="txtpassword" placeholder="Enter your password">
+            <small id="invalidPassword" style="color: red;">Invalid Password</small>
             
             <label for="signup-role">Role</label>
             <select id="signup-role">
@@ -34,7 +36,6 @@
                 <option value="administer">ADMINISTER</option>
                 <option value="manager">MANAGER</option>
                 <option value="scientist">SCIENTIST</option>
-                <option value="other">OTHER</option>
             </select>
             
             <button class="signupbtn" id="btnSignup">Sign Up</button>
@@ -45,5 +46,8 @@
     </section>
     <script src="assets/jquery-3.7.1.min.js"></script>
     <script src="Js/login.js"></script>
+
+    <script src="Js/controller/validations/commonFunction.js"></script>
+    <script src="Js/controller/validations/loginValidation.js"></script>
 </body>
 </html>
