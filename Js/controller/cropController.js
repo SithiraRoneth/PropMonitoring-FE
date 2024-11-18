@@ -9,7 +9,7 @@ $("#btnCropSave").click(function(){
     let cropimageFile = $('#txtimage')[0].files[0];
     let category = $('#txtcategory').val();
     let cropseason = $('#txtseason').val();
-    let fieldcode = $('#txtFiled').val();
+    // let fieldcode = $('#txtFiled').val();
 
     const newCrop = Object.assign({}, crop);
     newCrop.cropCode = cropcode;
@@ -17,7 +17,7 @@ $("#btnCropSave").click(function(){
     newCrop.scientificName = scientificname;
     newCrop.category = category;
     newCrop.season = cropseason;
-    newCrop.fieldCode = fieldcode;
+    // newCrop.fieldCode = fieldcode;
 
     if (!checkExistCrop(newCrop.cropCode)) {
         if (cropimageFile) {
@@ -79,7 +79,42 @@ $("#btnCropSave").click(function(){
     $('#txtcropcode').focus();
 });
 
-$("#btnCropUpdate").click(function() {
+// $("#btnCropUpdate").click(function() {
+
+//     if (selectedCropIndex !== null) {
+//         let cropcode = $('#txtcropcode').val();
+//         let cropname = $('#txtcropname').val();
+//         let scientificname = $('#txtscientific').val();
+//         let cropimageFile = $('#txtimage')[0].files[0];
+//         let category = $('#txtcategory').val();
+//         let cropseason = $('#txtseason').val();
+//         let fieldcode = $('#txtFiled').val();
+
+//         const updatedCrop = cropDB[selectedCropIndex];
+//         updatedCrop.cropCode = cropcode;
+//         updatedCrop.cropName = cropname;
+//         updatedCrop.scientificName = scientificname;
+//         updatedCrop.cropImage = cropimageFile;
+//         updatedCrop.category = category;
+//         updatedCrop.season = cropseason;
+//         updatedCrop.fieldCode = fieldcode;
+
+//         if (cropimageFile) {
+//             const reader = new FileReader();
+//             reader.onload = function(e) {
+//                 updatedCrop.cropImage = e.target.result;
+//                 renderCropCards();
+//             };
+//             reader.readAsDataURL(cropimageFile);
+//         } else {
+//             renderCropCards();
+//         }
+
+//         clearAllCrop();
+//         selectedCropIndex = null;
+//     }
+// });
+$("#btnCropUpdate").click(function () {
     if (selectedCropIndex !== null) {
         let cropcode = $('#txtcropcode').val();
         let cropname = $('#txtcropname').val();
@@ -87,25 +122,27 @@ $("#btnCropUpdate").click(function() {
         let cropimageFile = $('#txtimage')[0].files[0];
         let category = $('#txtcategory').val();
         let cropseason = $('#txtseason').val();
-        let fieldcode = $('#txtFiled').val();
+        // let fieldcode = $('#txtFiled').val();
 
         const updatedCrop = cropDB[selectedCropIndex];
+
         updatedCrop.cropCode = cropcode;
         updatedCrop.cropName = cropname;
         updatedCrop.scientificName = scientificname;
-        updatedCrop.cropImage = cropimageFile;
         updatedCrop.category = category;
         updatedCrop.season = cropseason;
-        updatedCrop.fieldCode = fieldcode;
+        // updatedCrop.fieldCode = fieldcode;
 
         if (cropimageFile) {
+           
             const reader = new FileReader();
-            reader.onload = function(e) {
-                updatedCrop.cropImage = e.target.result;
+            reader.onload = function (e) {
+                updatedCrop.cropImage = e.target.result; 
                 renderCropCards();
             };
             reader.readAsDataURL(cropimageFile);
         } else {
+            
             renderCropCards();
         }
 
@@ -113,6 +150,7 @@ $("#btnCropUpdate").click(function() {
         selectedCropIndex = null;
     }
 });
+
 $("#btnCropDelete").click(function(){
     let selectedID = $("txtcropcode").val()
     if (selectedID) {
@@ -231,5 +269,16 @@ function renderCropCards() {
         console.log("Selected crop for update:", selectedCrop);
     });
     
+    $("#txtimage").change(function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+               
+                $('#imagePreview').attr('src', e.target.result).show();
+            };
+            reader.readAsDataURL(file);
+        }
+    });
     
 }
