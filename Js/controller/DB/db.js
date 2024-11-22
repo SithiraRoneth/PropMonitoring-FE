@@ -1,0 +1,2 @@
+var cropDB = []
+var staffDB = []

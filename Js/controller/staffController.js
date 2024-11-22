@@ -4,10 +4,10 @@ document.getElementById('btnstaffsave').addEventListener('click', function () {
 });
 
 const staff = {};
-const staffDB = [];
+// const staffDB = [];
 
 const vehicle = {};
-const vehicleDB = [];
+// const vehicleDB = [];
 $("#btnnext").click(function(){
     let staffId = $('#txtstaffid').val();
     let firstName = $('#txtfirstname').val();
@@ -41,6 +41,7 @@ $("#btnnext").click(function(){
             success: (res) => {
                 console.log(JSON.stringify(res))
                 console.log("staff saved successfully")
+                clearAllStaff()
                 $('#addVehicleModal').modal('show');
                 // Swal.fire({
                 //     title: "Saved Successfully",
@@ -124,3 +125,27 @@ $("#btnSkip").click(function(){
     alert("saved")
     $('#addVehicleModal').modal('hide');
 });
+
+function checkExistStaff(staffId){
+    for(let i = 0; i < staffDB.length; i++){
+        if(staff == staffDB[i].staffId){
+            return true;
+        }
+    }
+    return false;
+}
+
+function clearAllStaff(){
+    $("#txtplate").val('');
+    $("#txtVcategory").val('')
+    $("#txtfuel").val('')
+    $("#txtremark").val('')
+    $('#txtstaffid').val('')
+    $('#txtfirstname').val('')
+    $('#txtlastname').val('')
+    $('#txtdesignation').val('')
+    $("input[name='gender']:checked").val('')
+    $('#txtaddress1').val('')
+    $('#txtcontact').val('')
+    $('#txtemail').val('')
+}
