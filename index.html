@@ -119,7 +119,7 @@
             <li>
               <a href="#" class="nav-link px-3 active" onclick="showSection('records')">
                   <span class="me-2"><i><img src="assets/icons/recors.png" alt="" width="30px"></i></span>
-                  <span>Records</span>
+                  <span>Logins</span>
               </a>
             </li>  
             <li class="my-2"><hr class="dropdown-divider bg-light" /></li>     
@@ -283,13 +283,166 @@
             
             </div>
             <div class="container-fluid" id="vehicle">
-                <h1>Vehicle</h1>
+              <div class="container" style="overflow-x: auto;">
+                <table class="table" style="width: 92%; margin-top: 20px;">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">First</th>
+                      <th scope="col">Last</th>
+                      <th scope="col">Handle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td colspan="2">Larry the Bird</td>
+                      <td>@twitter</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="container-fluid" id="equipment">
                 <h1>Equipment</h1>
             </div>
             <div class="container-fluid" id="staff">
-                <h1>Staff</h1>
+                <div style="overflow-x: auto;">
+                  <div class="manage">
+                    <h2>Manage Staff</h2>
+                    <button type="button" class="btn btn-success" id="btnstaffsave"><i><img src="assets/icons/add.png" alt=""></i></button>
+
+                  </div>
+                  <div class="modal" id="staffModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Add Staff Member</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="form-group">
+                            <label class="mt-2">Staff Id</label>
+                            <input class="form-control mt-2" id="txtstaffid" type="text">
+                          </div>
+              
+                          <div class="form-group">
+                            <label class="mt-2">First Name</label>
+                            <input class="form-control mt-2" id="txtfirstname" type="text">
+                          </div>
+                          <div class="form-group">
+                            <label class="mt-2">Last Name</label>
+                            <input class="form-control mt-2" id="txtlastname" type="text">
+                          </div>
+                          <div class="form-group">
+                            <label class="mt-2">Designation</label>
+                            <input class="form-control mt-2" id="txtdesignation" type="text">
+                          </div>
+                          <div class="form-group mt-2">
+                            <label>Gender<br></label>
+                            <input type="radio" id="genderMale" name="gender" value="Male"> Male
+                            <input type="radio" id="genderFemale" name="gender" value="Female"> Female
+                        </div>
+                        <div class="form-group">
+                          <label class="mt-2">Address</label>
+                          <input class="form-control mt-2" id="txtaddress1" type="text">
+                        </div>
+                        <div class="form-group">
+                          <label class="mt-2">Contact No.</label>
+                          <input class="form-control mt-2" id="txtcontact" type="number">
+                        </div>
+                        <div class="form-group">
+                          <label class="mt-2">Email</label>
+                          <input class="form-control mt-2" id="txtemail" type="email">
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                          <button type="button" class="btn btn-primary" id="btnnext">Next</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+                  <!-- Modal -->
+                  <div class="modal" id="addVehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Add a Vehicle for Staff ID : <span id="modalStaffId"></span></h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button> -->
+                        </div>
+                        <div class="modal-body">
+                          <!-- Your form inputs for adding vehicle go here -->
+                          <label for="vehicleModel">Licene Plate No</label>
+                          <input type="text" id="txtplate" class="form-control">
+                          <br>
+                          <label for="vehicleNumber">Vehicle Category</label>
+                          <input type="text" id="txtVcategory" class="form-control">
+                          <br>
+                          <label for="vehicleNumber">Fuel Type</label>
+                          <input type="text" id="txtfuel" class="form-control">
+                          <br>
+                          <label for="vehicleNumber">Status</label>
+                          <input type="text" id="txtstatus" class="form-control">
+                          <br>
+                          <label for="vehicleNumber">Remark</label>
+                          <input type="text" id="txtremark" class="form-control">
+                          <br>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnSkip">Skip</button>
+                          <button type="button" class="btn btn-primary" id="btnsavevehicle">Save Vehicle</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <table class="table" style="width: 92%; margin-top: 50px;">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>
+                          <!-- Edit Icon as a button -->
+                          <button type="button" class="icon-button">
+                              <img src="assets/icons/edit.png" alt="Edit">
+                          </button>
+                      
+                          <!-- Delete Icon as a button -->
+                          <button type="button" class="icon-button">
+                              <img src="assets/icons/delete.png" alt="Delete">
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
             </div>
             <div class="container-fluid" id="records">
               <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; border-radius: 20px 20px 20px 20px;margin-top: 2%; margin-right: 2%;">
@@ -335,6 +488,7 @@
     <script src="./js/script.js"></script>
     <script src="Js/navigaton.js"></script>
     <script src="Js/controller/cropController.js"></script>
+    <script src="Js/controller/staffController.js"></script>
 
     <script src="Js/controller/validations/commonFunction.js"></script>
     <script src="Js/controller/validations/cropValidation.js"></script>

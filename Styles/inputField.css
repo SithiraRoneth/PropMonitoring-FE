@@ -49,4 +49,87 @@ input.form-control {
     cursor: not-allowed; 
     border-bottom: 1px dashed #ccc; 
   }
-  
+  .manage {
+    width: 92%;
+    height: 50px;
+    background-color: #1b503d;
+    margin-top: 2%;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0 10px; 
+}
+
+.manage h2 {
+    color: #fff;
+    font-size: 1.7em;
+    font-weight: 800;
+    margin: 0;
+}
+
+.manage .btn-success {
+    margin: 0; 
+    background: transparent;
+    border: 0;
+}
+.manage .btn-success i img{
+  width: 30px;
+  height: auto;
+}
+.table .btn-sm {
+  margin: 0 5px; /* Add spacing between buttons */
+}
+/* Base styling for the button */
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.icon-button img {
+  width: 20px; /* Adjust icon size */
+  height: auto;
+}
+
+/* Wrapper to position tooltip */
+.icon-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px; /* Space between icons */
+}
+
+/* male female radio button */
+/* .form-check-input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  outline: none;
+  transition: 0.2s;
+  cursor: pointer;
+  margin-top: 0.3rem;
+}
+
+.form-check-input[type="radio"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.form-check-input[type="radio"]:checked::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+
