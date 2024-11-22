@@ -81,13 +81,46 @@ $("#btnsavevehicle").click(function(){
     newVehicle.Vstaff = staffId;
 
     console.log(newVehicle);
+    if(!checkExistVehicle(newVehicle.licene)){
+        $.ajax({
+            url: "http://localhost:5050/vehicles",
+            type: "POST",
+            data: JSON.stringify(newVehicle),
+            headers: {"Content-Type": "application/json"},
+            success: (res) => {
+                console.log(JSON.stringify(res))
+                console.log("vehicle saved successfully")
+                
+                // Swal.fire({
+                //     title: "Saved Successfully",
+                //     text: "",
+                //     icon: "success"
+                // })
+                $('#addVehicleModal').modal('hide');
+                // get All crops
+
+            },
+            error: (res) => {
+                console.error(res)
+                Swal.fire({
+                    title: "Oops Failed",
+                    text: "Invalid Vehicle type",
+                    icon: "error"
+                })
+            }
+        })
+    }else{
+        console.log("vehicle with id already added")
+    
+    }
 });
 
 $("#btnSkip").click(function(){
-    Swal.fire({
-        title: "Staff Saved Successfully",
-        text: "",
-        icon: "success"
-    });
+    // Swal.fire({
+    //     title: "Staff Saved Successfully",
+    //     text: "",
+    //     icon: "success"
+    // });
+    alert("saved")
     $('#addVehicleModal').modal('hide');
 });
