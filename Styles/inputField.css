@@ -53,7 +53,7 @@ input.form-control {
     width: 92%;
     height: 50px;
     background-color: #1b503d;
-    margin-top: 2%;
+    margin-top: 1%;
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
@@ -133,3 +133,30 @@ input.form-control {
 } */
 
 
+.equipment {
+  width: 92%;
+  height: 50px;
+  background-color: #1b503d;
+  margin-top: 2%;
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 0 10px; 
+}
+
+.equipment h2 {
+  color: #fff;
+  font-size: 1.7em;
+  font-weight: 800;
+  margin: 0;
+}
+
+.equipment .btn-success {
+  margin: 0; 
+  background: transparent;
+  border: 0;
+}
+.equipment .btn-success i img{
+width: 30px;
+height: auto;
+}

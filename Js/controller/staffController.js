@@ -1,10 +1,10 @@
-document.getElementById('btnstaffsave').addEventListener('click', function () {
-    const modal = new bootstrap.Modal(document.getElementById('staffModal'));
-    modal.show();
-});
+// document.getElementById('btnstaffsave').addEventListener('click', function () {
+//     const modal = new bootstrap.Modal(document.getElementById('staffModal'));
+//     modal.show();
+// });
 
 const staff = {};
-// const staffDB = [];
+const staffDB = [];
 
 const vehicle = {};
 // const vehicleDB = [];
@@ -29,7 +29,7 @@ $("#btnnext").click(function(){
     newStaff.email = email;
 
     console.log(newStaff);
-    $('#staffModal').modal('hide');
+    // $('#staffModal').modal('hide');
     $('#modalStaffId').text(staffId);
     $('#addVehicleModal').modal('show');
     if(!checkExistStaff(newStaff.staffId)){

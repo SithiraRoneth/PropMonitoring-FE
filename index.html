@@ -283,111 +283,143 @@
             
             </div>
             <div class="container-fluid" id="vehicle">
+              <div class="manage" style="background-color: #37ac81; margin-top: 4%;">
+                <h2>View Vehicles</h2>
+              </div>
               <div class="container" style="overflow-x: auto;">
                 <table class="table" style="width: 92%; margin-top: 20px;">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">First</th>
-                      <th scope="col">Last</th>
-                      <th scope="col">Handle</th>
+                      <th scope="col">Licene Plate</th>
+                      <th scope="col">Vehicle Category</th>
+                      <th scope="col">Fuel Type</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Remark</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td colspan="2">Larry the Bird</td>
-                      <td>@twitter</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
             <div class="container-fluid" id="equipment">
-                <h1>Equipment</h1>
-            </div>
-            <div class="container-fluid" id="staff">
                 <div style="overflow-x: auto;">
-                  <div class="manage">
-                    <h2>Manage Staff</h2>
-                    <button type="button" class="btn btn-success" id="btnstaffsave"><i><img src="assets/icons/add.png" alt=""></i></button>
-
+                  <div class="equipment">
+                    <h2>Manage Equipment</h2>
+                    <button type="button" class="btn btn-success" id="btnequipmentAdd"><i><img src="assets/icons/add.png" alt=""></i></button>
                   </div>
-                  <div class="modal" id="staffModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+                  <div class="modal" id="equipmentModal" tabindex="-1">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Add Staff Member</h5>
+                          <h5 class="modal-title">Add Equipment</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                           <div class="form-group">
-                            <label class="mt-2">Staff Id</label>
-                            <input class="form-control mt-2" id="txtstaffid" type="text">
-                          </div>
-              
-                          <div class="form-group">
-                            <label class="mt-2">First Name</label>
-                            <input class="form-control mt-2" id="txtfirstname" type="text">
+                            <label class="mt-2">Equipment Id</label>
+                            <input class="form-control mt-2" id="txteqid" type="text">
                           </div>
                           <div class="form-group">
-                            <label class="mt-2">Last Name</label>
-                            <input class="form-control mt-2" id="txtlastname" type="text">
-                          </div>
-                          <div class="form-group">
-                            <label class="mt-2">Designation</label>
-                            <input class="form-control mt-2" id="txtdesignation" type="text">
+                            <label class="mt-2">Equipment Name</label>
+                            <input class="form-control mt-2" id="txteqname" type="text">
                           </div>
                           <div class="form-group mt-2">
-                            <label>Gender<br></label>
-                            <input type="radio" id="genderMale" name="gender" value="Male"> Male
-                            <input type="radio" id="genderFemale" name="gender" value="Female"> Female
-                        </div>
-                        <div class="form-group">
-                          <label class="mt-2">Address</label>
-                          <input class="form-control mt-2" id="txtaddress1" type="text">
-                        </div>
-                        <div class="form-group">
-                          <label class="mt-2">Contact No.</label>
-                          <input class="form-control mt-2" id="txtcontact" type="number">
-                        </div>
-                        <div class="form-group">
-                          <label class="mt-2">Email</label>
-                          <input class="form-control mt-2" id="txtemail" type="email">
-                        </div>
+                            <label>Equipment Type<br><br></label>
+                            <input type="radio" id="Eq_Electrical" name="Eq_type" value="Electrical"> Electrical
+                            <input type="radio" id="Eq_Mechanical" name="Eq_type" value="Mechanical"> Mechanical
+                          </div>
+                          <div class="form-group mt-2">
+                            <label>Equipment Status<br><br></label>
+                            <input type="radio" id="Eq_Available" name="Eq_status" value="Available"> Available
+                            <input type="radio" id="Eq_UnAvailable" name="Eq_status" value="Unavailable"> Unavailable
+                          </div>
                         </div>
                         <div class="modal-footer">
                           <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                          <button type="button" class="btn btn-primary" id="btnnext">Next</button>
+                          <button type="button" class="btn btn-success" id="btnSaveEquipment">Save</button>
                         </div>
                       </div>
                     </div>
-                  </div>  
-                  <!-- Modal -->
+                  </div>
+                  <table class="table" style="width: 92%; margin-top: 50px;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Eq_Id</th>
+                        <th scope="col">Eq_Name</th>
+                        <th scope="col">Eq_Type</th>
+                        <th scope="col">Eq_Status</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-group-divider" id="tblEquipment">
+                      
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+            <div class="container-fluid" id="staff">
+              <div class="manage">
+                <h2>Manage Staff</h2>
+              </div>
+              <section>
+                <section class="col-lg-10 col-12 vh-75 bg-body">
+                  <div class="row mt-2">
+                    <!-- First Column -->
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="mt-2">Staff Id</label>
+                        <input class="form-control mt-2" id="txtstaffid" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label class="mt-2">First Name</label>
+                        <input class="form-control mt-2" id="txtfirstname" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label class="mt-2">Last Name</label>
+                        <input class="form-control mt-2" id="txtlastname" type="text">
+                      </div>
+                    </div>
+                    <!-- Second Column -->
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="mt-2">Designation</label>
+                        <input class="form-control mt-2" id="txtdesignation" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label class="mt-2">Gender</label><br>
+                        <input type="radio" id="genderMale" name="gender" value="Male"> Male
+                        <input type="radio" id="genderFemale" name="gender" value="Female"> Female
+                      </div>
+                      <div class="form-group">
+                        <label class="mt-4">Address</label>
+                        <input class="form-control mt-2" id="txtaddress1" type="text">
+                      </div>
+                    </div>
+                    <!-- Third Column -->
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="mt-2">Contact No.</label>
+                        <input class="form-control mt-2" id="txtcontact" type="number">
+                      </div>
+                      <div class="form-group">
+                        <label class="mt-2">Email</label>
+                        <input class="form-control mt-2" id="txtemail" type="email">
+                      </div>
+                      <!-- <button type="button" class="btn btn-primary" id="btnnext" style="margin-top: 20%; margin-left: 90%;">Next</button> -->
+                      <button type="button" class="btn btn-info" id="btnnext" style="margin-top: 15%; margin-left: 80%;">Save</button>
+
+                    </div>
+                  </div>
+                  <!--Vehicle  Modal -->
                   <div class="modal" id="addVehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLabel">Add a Vehicle for Staff ID : <span id="modalStaffId"></span></h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button> -->
                         </div>
                         <div class="modal-body">
-                          <!-- Your form inputs for adding vehicle go here -->
                           <label for="vehicleModel">Licene Plate No</label>
                           <input type="text" id="txtplate" class="form-control">
                           <br>
@@ -411,37 +443,27 @@
                       </div>
                     </div>
                   </div>
-
-                  <table class="table" style="width: 92%; margin-top: 50px;">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                        <th scope="col"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>
-                          <!-- Edit Icon as a button -->
-                          <button type="button" class="icon-button">
-                              <img src="assets/icons/edit.png" alt="Edit">
-                          </button>
-                      
-                          <!-- Delete Icon as a button -->
-                          <button type="button" class="icon-button">
-                              <img src="assets/icons/delete.png" alt="Delete">
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                </section>
+              </section>
+              <div style="overflow-x: auto;">
+                <table class="table" style="width: 92%; margin-top: 50px;">
+                  <thead>
+                    <tr>
+                      <th scope="col">Staff Id</th>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Designation</th>
+                      <th scope="col">Gender</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Contact No</th>
+                      <th scope="col">Email</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             <div class="container-fluid" id="records">
@@ -471,9 +493,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>2024-11-16</td>
-                            <td>Mark Otto</td>
-                            <td>@mdo</td>
+                            
                         </tr>
                     </tbody>
                 </table>
@@ -489,6 +509,7 @@
     <script src="Js/navigaton.js"></script>
     <script src="Js/controller/cropController.js"></script>
     <script src="Js/controller/staffController.js"></script>
+    <script src="Js/controller/equipmentController.js"></script>
 
     <script src="Js/controller/validations/commonFunction.js"></script>
     <script src="Js/controller/validations/cropValidation.js"></script>
