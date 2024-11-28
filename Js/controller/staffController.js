@@ -2,7 +2,7 @@ const staff = {};
 const staffDB = [];
 
 const vehicle = {};
-// const vehicleDB = [];
+const vehicleDB = [];
 
 getAllStaff()
 // staff save
@@ -27,34 +27,32 @@ $("#btnnext").click(function(){
     newStaff.email = email;
 
     console.log(newStaff);
-    // $('#staffModal').modal('hide');
-    $.ajax({
-         url: "http://localhost:5050/propMonitoring/api/v1/staffs",
-        type: "POST",
-        data: JSON.stringify(newStaff),
-        headers: {"Content-Type": "application/json"},
-        success: (res) => {
-            console.log(JSON.stringify(res))
-            console.log("staff saved successfully")
-            clearAllStaff()
-            $('#addVehicleModal').modal('show');
-            // Swal.fire({
-            //     title: "Saved Successfully",
-            //     text: "",
-            //     icon: "success"
-            // })
-
-            // get All crops
-        },
-        error: (res) => {
-            console.error(res)
-            Swal.fire({
-                title: "Oops Failed",
-                text: "Invalid Staff type",
-                icon: "error"
-            })
-        }
-    })
+    if(!checkExistStaff(newStaff.staff)){
+        $.ajax({
+            url: "http://localhost:5050/propMonitoring/api/v1/staffs",
+           type: "POST",
+           data: JSON.stringify(newStaff),
+           headers: {"Content-Type": "application/json"},
+           success: (res) => {
+               console.log(JSON.stringify(res))
+               console.log("staff saved successfully")
+               getAllStaff()
+               clearAllStaff()
+               $('#addVehicleModal').modal('show');
+               
+           },
+           error: (res) => {
+               console.error(res)
+               Swal.fire({
+                   title: "Oops Failed",
+                   text: "Invalid Staff type",
+                   icon: "error"
+               })
+           }
+       })
+    }else{
+        alert("Oops! already exisist staff id")
+    }
     
 });
 // vehicle save
@@ -128,6 +126,14 @@ function checkExistStaff(staffId){
     return false;
 }
 
+function checkExistVehicle(licene){
+    for(let i = 0; i < vehicleDB.length; i++){
+        if(vehicle == vehicleDB[i].licene){
+            return true;
+        }
+    }
+    return false;
+}
 function clearAllStaff(){
     $("#txtplate").val('');
     $("#txtVcategory").val('')
@@ -183,7 +189,7 @@ function getAllStaff() {
                         type: "DELETE",
                         success: function(response) {
                             alert("The staff member has been deleted.");
-                            getAllStaff();  // Reload the staff data to reflect the deletion
+                            getAllStaff();  
                         },
                         error: function(xhr, status, error) {
                             if (xhr.status === 404) {
