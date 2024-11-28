@@ -21,28 +21,30 @@ $("#btnCropSave").click(function () {
     formData.append("category", category);
     formData.append("season", season);
 
-    
-    $.ajax({
-        url: "http://localhost:5050/propMonitoring/api/v1/crops",
-        type: "POST",
-        data: formData,
-        processData: false, 
-        contentType: false,
-        success: (res) => {
-            console.log("Saved successfully:", res);
+    if(!checkExistCrop(cropCode)){
+        $.ajax({
+            url: "http://localhost:5050/propMonitoring/api/v1/crops",
+            type: "POST",
+            data: formData,
+            processData: false, 
+            contentType: false,
+            success: (res) => {
+                console.log("Saved successfully:", res);
+            },
             
-            getAllCrops()
-        },
-        
-        error: (res) => {
-            console.error("Save failed:", res);
-            Swal.fire({
-                title: "Oops Failed",
-                text: "Unable to save the crop",
-                icon: "error",
-            });
-        },
-    });
+            error: (res) => {
+                console.error("Save failed:", res);
+                Swal.fire({
+                    title: "Oops Failed",
+                    text: "Unable to save the crop",
+                    icon: "error",
+                });
+            },
+        });
+    }else{
+        alert("Oops! already exisit crop code")
+    }
+    
 
     clearAllCrop();
     $('#txtcropcode').focus();
