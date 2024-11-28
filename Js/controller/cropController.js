@@ -2,208 +2,143 @@ const crop = {};
 const cropDB = []; 
 let selectedCropIndex = null; 
 
-$("#btnCropSave").click(function(){
-    let cropcode = $('#txtcropcode').val();
-    let cropname = $('#txtcropname').val();
-    let scientificname = $('#txtscientific').val();
-    let cropimageFile = $('#txtimage')[0].files[0];
+getAllCrops()
+
+$("#btnCropSave").click(function () {
+    let cropCode = $('#txtcropcode').val();
+    let cropName = $('#txtcropname').val();
+    let scientificName = $('#txtscientific').val();
+    let cropImageFile = $('#txtimage')[0].files[0];
     let category = $('#txtcategory').val();
-    let cropseason = $('#txtseason').val();
-    // let fieldcode = $('#txtFiled').val();
+    let season = $('#txtseason').val();
 
-    const newCrop = Object.assign({}, crop);
-    newCrop.cropCode = cropcode;
-    newCrop.cropName = cropname;
-    newCrop.scientificName = scientificname;
-    newCrop.category = category;
-    newCrop.season = cropseason;
-    // newCrop.fieldCode = fieldcode;
+    
+    let formData = new FormData();
+    formData.append("crop_code", cropCode);
+    formData.append("cropName", cropName);
+    formData.append("scientificName", scientificName);
+    formData.append("cropImage", cropImageFile);
+    formData.append("category", category);
+    formData.append("season", season);
 
-    if (!checkExistCrop(newCrop.cropCode)) {
-        if (cropimageFile) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                newCrop.cropImage = e.target.result;
-                
-                cropDB.push(newCrop);
-                renderCropCards();
-            };
-            reader.readAsDataURL(cropimageFile);
-            clearAllCrop()
-        }
-        $.ajax({
-            url: "http://localhost:5050/crops",
-            type: "POST",
-            data: customerJson,
-            headers: {"Content-Type": "application/json"},
-            success: (res) => {
-                console.log(JSON.stringify(res))
-                Swal.fire({
-                    title: "Saved Successfully",
-                    text: "",
-                    icon: "success"
-                })
-                // get All crops
-            },
-            error: (res) => {
-                console.error(res)
-                Swal.fire({
-                    title: "Oops Failed",
-                    text: "Invalid Crop type",
-                    icon: "error"
-                })
-            }
-        })
-    } else {
-        console.log("Crop with this code already exists");
-        Swal.fire({
-            title: "Same Customer Id",
-            showClass: {
-                popup: `
-  animate__animated
-  animate__fadeInUp
-  animate__faster
-`
-            },
-            hideClass: {
-                popup: `
-  animate__animated
-  animate__fadeOutDown
-  animate__faster
-`
-            }
-        });
-    }
+    
+    $.ajax({
+        url: "http://localhost:5050/propMonitoring/api/v1/crops",
+        type: "POST",
+        data: formData,
+        processData: false, 
+        contentType: false,
+        success: (res) => {
+            console.log("Saved successfully:", res);
+            
+            getAllCrops()
+        },
+        
+        error: (res) => {
+            console.error("Save failed:", res);
+            Swal.fire({
+                title: "Oops Failed",
+                text: "Unable to save the crop",
+                icon: "error",
+            });
+        },
+    });
 
     clearAllCrop();
     $('#txtcropcode').focus();
+    getAllCrops()
 });
 
-// $("#btnCropUpdate").click(function() {
 
-//     if (selectedCropIndex !== null) {
-//         let cropcode = $('#txtcropcode').val();
-//         let cropname = $('#txtcropname').val();
-//         let scientificname = $('#txtscientific').val();
-//         let cropimageFile = $('#txtimage')[0].files[0];
-//         let category = $('#txtcategory').val();
-//         let cropseason = $('#txtseason').val();
-//         let fieldcode = $('#txtFiled').val();
-
-//         const updatedCrop = cropDB[selectedCropIndex];
-//         updatedCrop.cropCode = cropcode;
-//         updatedCrop.cropName = cropname;
-//         updatedCrop.scientificName = scientificname;
-//         updatedCrop.cropImage = cropimageFile;
-//         updatedCrop.category = category;
-//         updatedCrop.season = cropseason;
-//         updatedCrop.fieldCode = fieldcode;
-
-//         if (cropimageFile) {
-//             const reader = new FileReader();
-//             reader.onload = function(e) {
-//                 updatedCrop.cropImage = e.target.result;
-//                 renderCropCards();
-//             };
-//             reader.readAsDataURL(cropimageFile);
-//         } else {
-//             renderCropCards();
-//         }
-
-//         clearAllCrop();
-//         selectedCropIndex = null;
-//     }
-// });
 $("#btnCropUpdate").click(function () {
     if (selectedCropIndex !== null) {
-        let cropcode = $('#txtcropcode').val();
-        let cropname = $('#txtcropname').val();
-        let scientificname = $('#txtscientific').val();
-        let cropimageFile = $('#txtimage')[0].files[0];
+        let cropCode = $('#txtcropcode').val();
+        let cropName = $('#txtcropname').val();
+        let scientificName = $('#txtscientific').val();
+        let cropImageFile = $('#txtimage')[0].files[0]; 
         let category = $('#txtcategory').val();
-        let cropseason = $('#txtseason').val();
-        // let fieldcode = $('#txtFiled').val();
+        let season = $('#txtseason').val();
 
-        const updatedCrop = cropDB[selectedCropIndex];
+        
+        let formData = new FormData();
+        formData.append("cropCode", cropCode);
+        formData.append("cropName", cropName);
+        formData.append("scientificName", scientificName);
+        formData.append("category", category);
+        formData.append("season", season);
 
-        updatedCrop.cropCode = cropcode;
-        updatedCrop.cropName = cropname;
-        updatedCrop.scientificName = scientificname;
-        updatedCrop.category = category;
-        updatedCrop.season = cropseason;
-        // updatedCrop.fieldCode = fieldcode;
-
-        if (cropimageFile) {
-           
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                updatedCrop.cropImage = e.target.result; 
-                renderCropCards();
-            };
-            reader.readAsDataURL(cropimageFile);
+        
+        if (cropImageFile) {
+            formData.append("cropImage", cropImageFile);
         } else {
             
-            renderCropCards();
+            formData.append("cropImage", "");
         }
-
-        clearAllCrop();
-        selectedCropIndex = null;
-    }
-});
-
-$("#btnCropDelete").click(function(){
-    let selectedID = $("txtcropcode").val()
-    if (selectedID) {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't delete this crop",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Make an AJAX request to delete the customer
-                $.ajax({
-                    url: "http://localhost:5050/crop?id=" + selectedID,
-                    type: "DELETE",
-                    success: function (response) {
-                        Swal.fire({
-                            position: "top-end",
-                            icon: "success",
-                            title: "Customer Deleted",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        clearAllCrop()
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Failed to delete crop:", error);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Failed to delete crop!'
-                        });
-                    }
-                });
-            } else {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Cancelled',
-                    text: 'Crop deletion was cancelled.'
-                });
+        const isConfirmed = confirm("Are you sure you want to update this crop? ");
+        if(isConfirmed){
+        $.ajax({
+            url: "http://localhost:5050/propMonitoring/api/v1/crops/" + cropCode,
+            type: "PUT",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                console.log("Updated successfully:", res);
+                getAllCrops()
+                
+            },
+            error: function (xhr, status, error) {
+                console.error("Update failed:", error);
+               
             }
         });
-    } else {
-        Swal.fire({
-            icon: 'warning',
-            title: 'No Crop Selected!',
-            text: 'Please select a crop to delete.'
-        });
+        }else{
+            alert("Crop Update was cancelled."); 
+        }
+
+        clearAllCrop(); 
+        selectedCropIndex = null; 
+        getAllCrops()
     }
-    clearAllCrop()
 });
+
+
+
+$("#btnCropDelete").click(function(){
+    let selectedID = $('#txtcropcode').val();
+    if (selectedID) {
+        
+        const isConfirmed = confirm("Are you sure you want to delete this crop? You won't be able to recover it.");
+
+        if (isConfirmed) {
+            
+            $.ajax({
+                url: "http://localhost:5050/propMonitoring/api/v1/crops/" + selectedID, 
+                type: "DELETE",
+                success: function (response) {
+                    alert("Crop deleted successfully!"); 
+                    getAllCrops(); 
+                    clearAllCrop(); 
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 404) {
+                        alert("Crop not found!"); 
+                    } else if (xhr.status === 500) {
+                        alert("An error occurred while deleting the crop."); 
+                    } else {
+                        alert("Failed to delete crop!"); 
+                    }
+                }
+            });
+        } else {
+            alert("Crop deletion was cancelled."); 
+        }
+    } else {
+        alert("Please select a crop to delete!"); 
+    }
+});
+
+
 
 function checkExistCrop(code) {
     for (let i = 0; i < cropDB.length; i++) {
@@ -224,61 +159,86 @@ function clearAllCrop() {
     $('#txtFiled').val('');
     $('#imagePreview').hide();
 }
+  
+$("#txtimage").change(function () {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            
+            $('#imagePreview').attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(file);
+    }
+});
+ 
+function getAllCrops() {
+    let cropContainer = $("#cropCardsContainer");
+    cropContainer.empty();
 
+    $.ajax({
+        url: "http://localhost:5050/propMonitoring/api/v1/crops", 
+        type: "GET", 
+        contentType: "application/json",
+        success: function (crops) {
+            cropDB.length = 0; 
+            crops.forEach((crop) => {
+                cropDB.push(crop); 
 
-function renderCropCards() {
-    $('#cropCardsContainer').empty();
-    cropDB.forEach((crop, index) => {
-        const newCard = `
-          <div class="col-md-4 crop-card" data-index="${index}">
-            <div class="card mb-4" style="width: 100%;">
-              <img src="${crop.cropImage || 'assets/default.jpg'}" class="card-img-top" alt="${crop.cropName}">
-              <div class="card-body">
-                <h5 class="card-title">${crop.cropName}</h5>
-                <p class="card-text">
-                  Scientific Name: ${crop.scientificName}<br>
-                  Category: ${crop.category}<br>
-                  Season: ${crop.season}<br>
-                  Field Code: ${crop.fieldCode}
-                </p>
-              </div>
-            </div>
-          </div>`;
-        $('#cropCardsContainer').append(newCard);
-    });
+                let card = $(`
+                    <div class="col-md-4 crop-card" data-index="${crop.cropCode}">
+                        <div class="card mb-4" style="width: 100%;">
+                            <img 
+                                src="data:image/jpeg;base64,${crop.cropImage}" 
+                                class="card-img-top" 
+                                alt="${crop.cropName}" 
+                                loading="lazy" 
+                                onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';"
+                                style="max-height: 200px; object-fit: cover;"
+                            >
+                            <div class="card-body">
+                                <h5 class="card-title">${crop.cropName}</h5>
+                                <p class="card-text">
+                                    Crop Code: ${crop.cropCode}<br>
+                                    Scientific Name: ${crop.scientificName}<br>
+                                    Category: ${crop.category}<br>
+                                    Season: ${crop.season}<br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `);
 
-    $(".crop-card").click(function() {
-        selectedCropIndex = $(this).data("index");
-        const selectedCrop = cropDB[selectedCropIndex];
-    
-        
-        $('#txtcropcode').val(selectedCrop.cropCode);
-        $('#txtcropname').val(selectedCrop.cropName);
-        $('#txtscientific').val(selectedCrop.scientificName);
-        $('#txtcategory').val(selectedCrop.category);
-        $('#txtseason').val(selectedCrop.season);
-        $('#txtFiled').val(selectedCrop.fieldCode);
-    
-        
-        if (selectedCrop.cropImage) {
-            $('#imagePreview').attr('src', selectedCrop.cropImage).show();
-        } else {
-            $('#imagePreview').hide();
+                cropContainer.append(card);
+            });
+
+            // Add click event to each crop card
+            $(".crop-card").click(function() {
+                let selectedCropCode = $(this).data("index"); 
+                const selectedCrop = cropDB.find(crop => crop.cropCode === selectedCropCode); 
+
+                
+                if (selectedCrop) {
+                    $('#txtcropcode').val(selectedCrop.cropCode);
+                    $('#txtcropname').val(selectedCrop.cropName);
+                    $('#txtscientific').val(selectedCrop.scientificName);
+                    $('#txtcategory').val(selectedCrop.category);
+                    $('#txtseason').val(selectedCrop.season);
+
+                    
+                    if (selectedCrop.cropImage) {
+                        $('#imagePreview').attr('src', `data:image/jpeg;base64,${selectedCrop.cropImage}`).show();
+                    } else {
+                        $('#imagePreview').hide();
+                    }
+
+                    
+                    selectedCropIndex = cropDB.indexOf(selectedCrop);
+                }
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error("Failed to fetch crops: ", error);
         }
-    
-        console.log("Selected crop for update:", selectedCrop);
     });
-    
-    $("#txtimage").change(function () {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-               
-                $('#imagePreview').attr('src', e.target.result).show();
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-    
 }

@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="Css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="Css/style.css" />
     <link rel="stylesheet" href="Styles/inputField.css">
-    <script src="sweetalert2.min.js"></script>
     <link rel="stylesheet" href="sweetalert2.min.css">
     <title>Dashboard</title>
   </head>
@@ -259,9 +258,6 @@
                           <label class="mt-2">Crop</label>
                             <select class="form-select mt-2" id="selectAdditionalField">
                               <option value="" disabled selected>Select a Crop</option>
-                              <option value="option1">Option 1</option>
-                              <option value="option2">Option 2</option>
-                              <option value="option3">Option 3</option>
                             </select>
                         </div>
                       </div>
@@ -388,8 +384,9 @@
                       </div>
                       <div class="form-group">
                         <label class="mt-2">Gender</label><br>
-                        <input type="radio" id="genderMale" name="gender" value="Male"> Male
-                        <input type="radio" id="genderFemale" name="gender" value="Female"> Female
+                        <input type="radio" id="genderMale" name="gender" value="Male"> MALE
+                        <input type="radio" id="genderFemale" name="gender" value="Female"> FEMALE
+                        <!-- <input class="form-control mt-2" id="txtgender" type="text"> -->
                       </div>
                       <div class="form-group">
                         <label class="mt-4">Address</label>
@@ -443,10 +440,64 @@
                       </div>
                     </div>
                   </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="updateModalLabel">Update Staff Details</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form id="updateStaffForm">
+                            <div class="mb-3">
+                              <label for="staffId" class="form-label">Staff ID</label>
+                              <input type="text" class="form-control" id="staffId" disabled>
+                            </div>
+                            <div class="mb-3">
+                              <label for="firstName" class="form-label">First Name</label>
+                              <input type="text" class="form-control" id="firstName">
+                            </div>
+                            <div class="mb-3">
+                              <label for="lastName" class="form-label">Last Name</label>
+                              <input type="text" class="form-control" id="lastName">
+                            </div>
+                            <div class="mb-3">
+                              <label for="designation" class="form-label">Designation</label>
+                              <input type="text" class="form-control" id="designation">
+                            </div>
+                            <div class="mb-3">
+                              <label for="gender" class="form-label">Gender</label>
+                              <select class="form-control" id="gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                              </select>
+                            </div>
+                            <div class="mb-3">
+                              <label for="address" class="form-label">Address</label>
+                              <textarea class="form-control" id="address"></textarea>
+                            </div>
+                            <div class="mb-3">
+                              <label for="contactNo" class="form-label">Contact Number</label>
+                              <input type="text" class="form-control" id="contactNo">
+                            </div>
+                            <div class="mb-3">
+                              <label for="email" class="form-label">Email</label>
+                              <input type="email" class="form-control" id="email">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
                 </section>
               </section>
               <div style="overflow-x: auto;">
-                <table class="table" style="width: 92%; margin-top: 50px;">
+                <table id="tblStaff" class="table" style="width: 92%; margin-top: 50px;">
                   <thead>
                     <tr>
                       <th scope="col">Staff Id</th>
@@ -501,6 +552,7 @@
           
     </main>
     <script src="Js/bootstrap.bundle.min.js"></script>
+    <script src="sweetalert2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
     <script src="assets/jquery-3.7.1.min.js"></script>
     <script src="./js/jquery.dataTables.min.js"></script>

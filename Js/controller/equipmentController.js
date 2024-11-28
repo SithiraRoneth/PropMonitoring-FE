@@ -8,7 +8,7 @@
   const equipment = {}
   const equipmentDB = []
 
-  getAllEquipments()
+  // getAllEquipments()
 
   $("#tblEquipment").on('click', 'tr',function(){
     let eqId = $(this).find('td:eq(0)').text();
@@ -56,7 +56,7 @@
     tBody.empty()
 
     $.ajax({
-      url: "http://localhost:5050/equipments", // The URL to the backend endpoint
+      // url: "http://localhost:5050/equipments", // The URL to the backend endpoint
       type: "GET", // HTTP method
       contentType: "application/json", // Expected response content type
       success: function (equipment) {

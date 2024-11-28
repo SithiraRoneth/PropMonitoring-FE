@@ -51,3 +51,121 @@
     <script src="Js/controller/validations/loginValidation.js"></script>
 </body>
 </html>
+
+<!-- 
+// $("#btnCropSave").click(function(){
+//     let cropcode = $('#txtcropcode').val();
+//     let cropname = $('#txtcropname').val();
+//     let scientificname = $('#txtscientific').val();
+//     let cropimageFile = $('#txtimage')[0].files[0];
+//     let category = $('#txtcategory').val();
+//     let cropseason = $('#txtseason').val();
+//     // let fieldcode = $('#txtFiled').val();
+
+//     const newCrop = Object.assign({}, crop);
+//     newCrop.cropCode = cropcode;
+//     newCrop.cropName = cropname;
+//     newCrop.scientificName = scientificname;
+//     newCrop.category = category;
+//     newCrop.season = cropseason;
+//     // newCrop.fieldCode = fieldcode;
+
+//     if (!checkExistCrop(newCrop.cropCode)) {
+//         if (cropimageFile) {
+//             const reader = new FileReader();
+//             reader.onload = function(e) {
+//                 newCrop.cropImage = e.target.result;
+                
+//                 cropDB.push(newCrop);
+//                 renderCropCards();
+//             };
+//             reader.readAsDataURL(cropimageFile);
+//             clearAllCrop()
+//         }
+//         $.ajax({
+//             url: "http://localhost:5050/propMonitoring/api/v1/crops",
+//             type: "POST",
+//             data: JSON.stringify(newCrop),
+//             headers: {"Content-Type": "application/json"},
+//             success: (res) => {
+//                 console.log(JSON.stringify(res))
+//                 alert("done")
+//                 Swal.fire({
+//                     title: "Saved Successfully",
+//                     text: "",
+//                     icon: "success"
+//                 })
+//                 // get All crops
+//             },
+//             error: (res) => {
+//                 console.error(res)
+//                 Swal.fire({
+//                     title: "Oops Failed",
+//                     text: "Invalid Crop type",
+//                     icon: "error"
+//                 })
+//             }
+//         })
+//     } else {
+//         console.log("Crop with this code already exists");
+//         Swal.fire({
+//             title: "Same Customer Id",
+//             showClass: {
+//                 popup: `
+//   animate__animated
+//   animate__fadeInUp
+//   animate__faster
+// `
+//             },
+//             hideClass: {
+//                 popup: `
+//   animate__animated
+//   animate__fadeOutDown
+//   animate__faster
+// `
+//             }
+//         });
+//     }
+
+//     clearAllCrop();
+//     $('#txtcropcode').focus();
+// });
+
+// $("#btnCropUpdate").click(function() {
+
+//     if (selectedCropIndex !== null) {
+//         let cropcode = $('#txtcropcode').val();
+//         let cropname = $('#txtcropname').val();
+//         let scientificname = $('#txtscientific').val();
+//         let cropimageFile = $('#txtimage')[0].files[0];
+//         let category = $('#txtcategory').val();
+//         let cropseason = $('#txtseason').val();
+//         let fieldcode = $('#txtFiled').val();
+
+//         const updatedCrop = cropDB[selectedCropIndex];
+//         updatedCrop.cropCode = cropcode;
+//         updatedCrop.cropName = cropname;
+//         updatedCrop.scientificName = scientificname;
+//         updatedCrop.cropImage = cropimageFile;
+//         updatedCrop.category = category;
+//         updatedCrop.season = cropseason;
+//         updatedCrop.fieldCode = fieldcode;
+
+//         if (cropimageFile) {
+//             const reader = new FileReader();
+//             reader.onload = function(e) {
+//                 updatedCrop.cropImage = e.target.result;
+//                 renderCropCards();
+//             };
+//             reader.readAsDataURL(cropimageFile);
+//         } else {
+//             renderCropCards();
+//         }
+
+//         clearAllCrop();
+//         selectedCropIndex = null;
+//     }
+// });
+
+
+-->

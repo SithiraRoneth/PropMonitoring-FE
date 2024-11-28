@@ -1,13 +1,11 @@
-// document.getElementById('btnstaffsave').addEventListener('click', function () {
-//     const modal = new bootstrap.Modal(document.getElementById('staffModal'));
-//     modal.show();
-// });
-
 const staff = {};
 const staffDB = [];
 
 const vehicle = {};
 // const vehicleDB = [];
+
+getAllStaff()
+// staff save
 $("#btnnext").click(function(){
     let staffId = $('#txtstaffid').val();
     let firstName = $('#txtfirstname').val();
@@ -30,41 +28,36 @@ $("#btnnext").click(function(){
 
     console.log(newStaff);
     // $('#staffModal').modal('hide');
-    $('#modalStaffId').text(staffId);
-    $('#addVehicleModal').modal('show');
-    if(!checkExistStaff(newStaff.staffId)){
-        $.ajax({
-            url: "http://localhost:5050/staff",
-            type: "POST",
-            data: JSON.stringify(newStaff),
-            headers: {"Content-Type": "application/json"},
-            success: (res) => {
-                console.log(JSON.stringify(res))
-                console.log("staff saved successfully")
-                clearAllStaff()
-                $('#addVehicleModal').modal('show');
-                // Swal.fire({
-                //     title: "Saved Successfully",
-                //     text: "",
-                //     icon: "success"
-                // })
+    $.ajax({
+         url: "http://localhost:5050/propMonitoring/api/v1/staffs",
+        type: "POST",
+        data: JSON.stringify(newStaff),
+        headers: {"Content-Type": "application/json"},
+        success: (res) => {
+            console.log(JSON.stringify(res))
+            console.log("staff saved successfully")
+            clearAllStaff()
+            $('#addVehicleModal').modal('show');
+            // Swal.fire({
+            //     title: "Saved Successfully",
+            //     text: "",
+            //     icon: "success"
+            // })
 
-                // get All crops
-            },
-            error: (res) => {
-                console.error(res)
-                Swal.fire({
-                    title: "Oops Failed",
-                    text: "Invalid Staff type",
-                    icon: "error"
-                })
-            }
-        })
-    }else{
-        console.log("staff with id alraedy added")
-    }
+            // get All crops
+        },
+        error: (res) => {
+            console.error(res)
+            Swal.fire({
+                title: "Oops Failed",
+                text: "Invalid Staff type",
+                icon: "error"
+            })
+        }
+    })
     
 });
+// vehicle save
 $("#btnsavevehicle").click(function(){
     let licene = $("#txtplate").val();
     let Vcategory = $("#txtVcategory").val()
@@ -84,7 +77,7 @@ $("#btnsavevehicle").click(function(){
     console.log(newVehicle);
     if(!checkExistVehicle(newVehicle.licene)){
         $.ajax({
-            url: "http://localhost:5050/vehicles",
+            // url: "http://localhost:5050/api/v1/vehicles",
             type: "POST",
             data: JSON.stringify(newVehicle),
             headers: {"Content-Type": "application/json"},
@@ -149,3 +142,130 @@ function clearAllStaff(){
     $('#txtcontact').val('')
     $('#txtemail').val('')
 }
+
+function getAllStaff() {
+    let tBody = $("#tblStaff tbody");  // Selecting tbody element
+
+    // Clear existing table data
+    tBody.empty();
+
+    $.ajax({
+        url: "http://localhost:5050/propMonitoring/api/v1/staffs", 
+        type: "GET",
+        contentType: "application/json",
+        success: function(staffs) {
+            for (let i = 0; i < staffs.length; i++) {
+                let tr = $(`<tr>
+                                <td>${staffs[i].staffId}</td>
+                                <td>${staffs[i].firstName}</td>
+                                <td>${staffs[i].lastName}</td>
+                                <td>${staffs[i].designation}</td>
+                                <td>${staffs[i].gender}</td>
+                                <td>${staffs[i].address}</td>
+                                <td>${staffs[i].contactNo}</td>
+                                <td>${staffs[i].email}</td>
+                                <td><button class="btn btn-warning updateBtn" data-staff-id="${staffs[i].staffId}">Update</button></td>  
+                                <td><button class="btn btn-danger deleteBtn" data-staff-id="${staffs[i].staffId}">Delete</button></td>  
+                            </tr>`);
+                tBody.append(tr);  // Append the new row to the table
+            }
+
+            $(".deleteBtn").click(function() {
+                let staffId = $(this).data("staff-id");
+            
+                // Show a simple confirmation dialog
+                let confirmDelete = window.confirm("Are you sure you want to delete this staff member?");
+            
+                if (confirmDelete) {
+                    // Proceed to delete the staff
+                    $.ajax({
+                        url: `http://localhost:5050/propMonitoring/api/v1/staffs/${staffId}`,
+                        type: "DELETE",
+                        success: function(response) {
+                            alert("The staff member has been deleted.");
+                            getAllStaff();  // Reload the staff data to reflect the deletion
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.status === 404) {
+                                alert("Failed to delete the staff member. Staff not found.");
+                            } else if (xhr.status === 500) {
+                                alert("Failed to delete the staff member due to a server error.");
+                            } else {
+                                alert("An unknown error occurred.");
+                            }
+                        }
+                    });
+                } else {
+                    alert("The staff member was not deleted.");
+                }
+            });
+            
+
+            // Add event listener for the update button
+            $(".updateBtn").click(function() {
+                let staffId = $(this).data("staff-id");
+                let staff = staffs.find(s => s.staffId === staffId);
+
+                // Populate the modal fields with the staff data
+                $("#staffId").val(staff.staffId);
+                $("#firstName").val(staff.firstName);
+                $("#lastName").val(staff.lastName);
+                $("#designation").val(staff.designation);
+                $("#gender").val(staff.gender);
+                $("#address").val(staff.address);
+                $("#contactNo").val(staff.contactNo);
+                $("#email").val(staff.email);
+
+                // Show the modal
+                $('#updateModal').modal('show');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to fetch staff data:", error);
+            alert("Unable to load staff details.");
+        }
+    });
+}
+
+$("#updateStaffForm").submit(function(event) {
+    event.preventDefault();
+
+    // Get the updated staff details from the form inputs
+    let updatedStaff = {
+        staffId: $("#staffId").val(),
+        firstName: $("#firstName").val(),
+        lastName: $("#lastName").val(),
+        designation: $("#designation").val(),
+        gender: $("#gender").val(),
+        address: $("#address").val(),
+        contactNo: $("#contactNo").val(),
+        email: $("#email").val()
+    };
+
+    // Send the updated data to the server
+    $.ajax({
+        url: `http://localhost:5050/propMonitoring/api/v1/staffs/${updatedStaff.staffId}`,
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(updatedStaff),
+        success: function(response) {
+            Swal.fire({
+                title: "Success",
+                text: "Staff details updated successfully.",
+                icon: "success"
+            });
+            $('#updateModal').modal('hide');
+            getAllStaff();  // Reload the staff data
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                title: "Error",
+                text: "Failed to update staff details.",
+                icon: "error"
+            });
+        }
+    });
+});
+
+
+
