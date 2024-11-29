@@ -75,7 +75,7 @@ $("#btnsavevehicle").click(function(){
     console.log(newVehicle);
     if(!checkExistVehicle(newVehicle.licene)){
         $.ajax({
-            // url: "http://localhost:5050/api/v1/vehicles",
+            // url: "http://localhost:5050/propMonitoring/api/v1/vehicles",
             type: "POST",
             data: JSON.stringify(newVehicle),
             headers: {"Content-Type": "application/json"},
@@ -272,6 +272,5 @@ $("#updateStaffForm").submit(function(event) {
         }
     });
 });
-
 
 
