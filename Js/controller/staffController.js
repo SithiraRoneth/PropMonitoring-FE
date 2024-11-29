@@ -2,7 +2,7 @@ const staff = {};
 const staffDB = [];
 
 const vehicle = {};
-const vehicleDB = [];
+var vehicleDB = [];
 
 getAllStaff()
 // staff save
