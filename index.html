@@ -79,6 +79,12 @@
       <div class="offcanvas-body p-10" style="margin-top: 30%;">
         <nav class="navbar-dark">
           <ul class="navbar-nav">
+            <li>
+              <a href="#" class="nav-link px-3 active" onclick="showSection('home')">
+                  <span class="me-2"><i><img src="assets/icons/home.png" alt="" width="30px;height:auto"></i></span>
+                  <span >Home</span>
+              </a>
+          </li>
             <li class="my-2"><hr class="dropdown-divider bg-light" /></li>
             <li>
                 <a href="#" class="nav-link px-3 active" onclick="showSection('crop')">
@@ -128,11 +134,15 @@
     </div>
     <!-- forms -->
     <main class="mt-5 pt-3">
+              <div class="container my-5" id="home">
+                <h1>Home</h1>
+                
+              </div>
              <div class="container" id="profile">
                 <h1>Profile</h1>
             </div>
             <!-- Crop Section -->
-            <div class="container-fluid  crop-container" id="crop">
+            <div class="container-fluid  container my-5" id="crop">
               <section>
                   <!--///////////////////////////////////-->
                     <section class="col-lg-10 col-12 vh-75 bg-body">
@@ -207,7 +217,7 @@
                 </section>
             </section>
             </div>
-            <div class="container-fluid" id="field">
+            <div class="container my-5" id="field">
               <section>
                 <!--///////////////////////////////////-->
                 <section class="col-lg-10 col-12 vh-75 bg-body">
@@ -278,12 +288,52 @@
             </div>
             
             </div>
-            <div class="container-fluid" id="vehicle">
+            <div class="container my-5" id="vehicle">
               <div class="manage" style="background-color: #37ac81; margin-top: 4%;">
                 <h2>View Vehicles</h2>
               </div>
+              <div class="modal fade" id="vehicleUpdateModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Update Vehicle</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form id="updateVehicleForm">
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="liceneNo">liceneNo</label>
+                          <input type="text" id="liceneNo" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                          <label for="vCategory">Vehicle Category</label>
+                          <input type="text" id="vCategory" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="fuelType">Vehicle Type</label>
+                          <input type="text" id="fuelType" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="vStatus">Status</label>
+                          <input type="text" id="vStatus" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="vRemarks">Remark</label>
+                          <input type="text" id="vRemarks" class="form-control">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
               <div class="container" style="overflow-x: auto;">
-                <table class="table" style="width: 92%; margin-top: 20px;">
+                <table id="tblVehicle" class="table" style="width: 92%; margin-top: 20px;">
                   <thead>
                     <tr>
                       <th scope="col">Licene Plate</th>
@@ -291,14 +341,17 @@
                       <th scope="col">Fuel Type</th>
                       <th scope="col">Status</th>
                       <th scope="col">Remark</th>
+                      <th scope="col">Staff ID</th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="tblVehicleBody">
+                    
                   </tbody>
                 </table>
               </div>
             </div>
-            <div class="container-fluid" id="equipment">
+            <div class="container my-5" id="equipment">
                 <div style="overflow-x: auto;">
                   <div class="equipment">
                     <h2>Manage Equipment</h2>
@@ -338,55 +391,66 @@
                       </div>
                     </div>
                   </div>
-                  <!-- Modal -->
-                  <div class="modal fade" id="updateEqModal" tabindex="-1" aria-labelledby="updateEqModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                  <div class="modal fade" id="equipmentUpdateModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="updateEqModalLabel">Update Equipment Details</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          <h5 class="modal-title">Update Equipment</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                         </div>
-                        <div class="modal-body">
-                          <form id="updateEquipmentForm">
-                            <div class="mb-3">
-                              <label for="eqId" class="form-label">Equipment ID</label>
-                              <input type="text" class="form-control" id="eqId" disabled>
+                        <form id="updateEquipmentForm">
+                          <div class="modal-body">
+                            <div class="form-group">
+                              <label for="eqId">ID</label>
+                              <input type="text" id="eqId" class="form-control" readonly>
                             </div>
-                            <div class="mb-3">
-                              <label for="eqName" class="form-label">Equipment Name</label>
-                              <input type="text" class="form-control" id="eqName">
+                            <div class="form-group">
+                              <label for="eqName">Name</label>
+                              <input type="text" id="eqName" class="form-control">
                             </div>
-                            <div class="mb-3">
-                              <label for="eqType" class="form-label">Equipment Type</label>
-                              <input type="text" class="form-control" id="eqType">
+                            <div class="form-group">
+                              <label for="eqType">Type</label>
+                              <input type="text" id="eqType" class="form-control">
                             </div>
-                            <div class="mb-3">
-                              <label for="eqStatus" class="form-label">Equipment Status</label>
-                              <input type="text" class="form-control" id="eqStatus">
+                            <div class="form-group">
+                              <label for="eqStatus">Status</label>
+                              <input type="text" id="eqStatus" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                          </form>
-                        </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>
-                  <table class="table" style="width: 92%; margin-top: 50px;">
+                  
+                </div>
+                
+                <div style="overflow-x: auto;">
+                  <table id="tblEquipment" class="table" style="width: 92%; margin-top: 50px;">
                     <thead>
                       <tr>
-                        <th scope="col">Eq_Id</th>
-                        <th scope="col">Eq_Name</th>
-                        <th scope="col">Eq_Type</th>
-                        <th scope="col">Eq_Status</th>
+                        <th scope="col">Equipment Id</th>
+                        <th scope="col">Equipment Name</th>
+                        <th scope="col">Equipment Type</th>
+                        <th scope="col">Equipment Status</th>
                         <th scope="col"></th>
                       </tr>
                     </thead>
-                    <tbody class="table-group-divider" id="tblEquipment">
-                      
+                    <tbody id="tblEquipmentBody">
+                      <!-- Equipment rows will be inserted here dynamically -->
                     </tbody>
                   </table>
                 </div>
+                
+                
+              </div>
             </div>
-            <div class="container-fluid" id="staff">
+            <div class="container my-5" id="staff">
               <div class="manage">
                 <h2>Manage Staff</h2>
               </div>
@@ -549,7 +613,7 @@
                 </table>
               </div>
             </div>
-            <div class="container-fluid" id="records">
+            <div class="container my-5" id="records">
               <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; border-radius: 20px 20px 20px 20px;margin-top: 2%; margin-right: 2%;">
                 <input 
                     type="text" 
@@ -597,5 +661,6 @@
 
     <script src="Js/controller/validations/commonFunction.js"></script>
     <script src="Js/controller/validations/cropValidation.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </body>
 </html>
