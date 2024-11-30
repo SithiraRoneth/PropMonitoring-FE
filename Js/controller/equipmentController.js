@@ -18,7 +18,7 @@ $("#btnSaveEquipment").click(function () {
   let eqStatus = $("input[name='Eq_status']:checked").val();
 
   const newEquipment = Object.assign({}, equipment);
-  newEquipment.equipmentId = eqId;  // Ensure consistency with equipmentId
+  newEquipment.equipmentId = eqId;  
   newEquipment.equipmentName = eqName;
   newEquipment.equipmentType = eqType;
   newEquipment.status = eqStatus;
@@ -154,11 +154,10 @@ function getAllEquipment() {
   });
 }
 
-// Handle update form submission
 $("#updateEquipmentForm").submit(function (event) {
   event.preventDefault();
 
-  // Get the updated equipment details from the form
+  // Collect form data
   let updatedEquipment = {
     equipmentId: $("#eqId").val(),
     equipmentName: $("#eqName").val(),
@@ -166,27 +165,20 @@ $("#updateEquipmentForm").submit(function (event) {
     status: $("#eqStatus").val()
   };
 
-  // Send the updated data to the server
+  // Send updated data to the server
   $.ajax({
     url: `http://localhost:5050/propMonitoring/api/v1/equipments/${updatedEquipment.equipmentId}`,
     type: "PUT",
-    contentType: "application/json",
+    contentType: "application/json", // Ensure it's JSON
     data: JSON.stringify(updatedEquipment),
-    success: function (response) {
-      Swal.fire({
-        title: "Success",
-        text: "Equipment details updated successfully.",
-        icon: "success"
-      });
+    success: function () {
+      alert("Equipment Updated");
       $('#equipmentUpdateModal').modal('hide');
-      getAllEquipment();  // Reload the equipment data
+      getAllEquipment(); // Reload data
     },
-    error: function (xhr, status, error) {
-      Swal.fire({
-        title: "Error",
-        text: "Failed to update equipment details.",
-        icon: "error"
-      });
+    error: function () {
+      alert("Cannot update equipment");
     }
   });
 });
+

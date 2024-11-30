@@ -160,3 +160,31 @@ input.form-control {
 width: 30px;
 height: auto;
 }
+
+
+.duty {
+  width: 92%;
+  height: 50px;
+  background-color: #1b503d;
+  margin-top: 2%;
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 0 10px; 
+}
+
+.duty h2 {
+  color: #fff;
+  font-size: 1.7em;
+  font-weight: 800;
+  margin: 0;
+}
+.duty .btn-success {
+  margin: 0; 
+  background: transparent;
+  border: 0;
+}
+.duty .btn-success i img{
+width: 30px;
+height: auto;
+}

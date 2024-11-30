@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="Css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="Css/style.css" />
     <link rel="stylesheet" href="Styles/inputField.css">
-    <link rel="stylesheet" href="sweetalert2.min.css">
+    <!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
     <title>Dashboard</title>
   </head>
   <body>
@@ -76,16 +76,10 @@
     );
     background-blend-mode: normal;
     background-blend-mode: normal;">
-      <div class="offcanvas-body p-10" style="margin-top: 30%;">
+      <div class="offcanvas-body p-10" style="margin-top: 20%;">
         <nav class="navbar-dark">
           <ul class="navbar-nav">
-            <li>
-              <a href="#" class="nav-link px-3 active" onclick="showSection('home')">
-                  <span class="me-2"><i><img src="assets/icons/home.png" alt="" width="30px;height:auto"></i></span>
-                  <span >Home</span>
-              </a>
-          </li>
-            <li class="my-2"><hr class="dropdown-divider bg-light" /></li>
+            <li class="my-2"><hr class="dropdown-divider bg-light" /></li> 
             <li>
                 <a href="#" class="nav-link px-3 active" onclick="showSection('crop')">
                     <span class="me-2"><i><img src="assets/icons/crops.png" alt="" width="30px;height:auto"></i></span>
@@ -128,16 +122,19 @@
               </a>
             </li>  
             <li class="my-2"><hr class="dropdown-divider bg-light" /></li>     
+            <li>
+              <a href="#" class="nav-link px-3 active" onclick="showSection('duties')">
+                  <span class="me-2"><i><img src="assets/icons/duty.png" alt="" width="30px"></i></span>
+                  <span>Duty Manage</span>
+              </a>
+            </li> 
+            <li class="my-2"><hr class="dropdown-divider bg-light" /></li> 
           </ul>
         </nav>
       </div>
     </div>
     <!-- forms -->
     <main class="mt-5 pt-3">
-              <div class="container my-5" id="home">
-                <h1>Home</h1>
-                
-              </div>
              <div class="container" id="profile">
                 <h1>Profile</h1>
             </div>
@@ -336,18 +333,16 @@
                 <table id="tblVehicle" class="table" style="width: 92%; margin-top: 20px;">
                   <thead>
                     <tr>
-                      <th scope="col">Licene Plate</th>
-                      <th scope="col">Vehicle Category</th>
-                      <th scope="col">Fuel Type</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Remark</th>
-                      <th scope="col">Staff ID</th>
-                      <th scope="col"></th>
+                      <th>License Plate No</th>
+                      <th>Vehicle Category</th>
+                      <th>Fuel Type</th>
+                      <th>Status</th>
+                      <th>Remarks</th>
+                      <th>Staff Member</th>
+                      <th></th>
                     </tr>
                   </thead>
-                  <tbody id="tblVehicleBody">
-                    
-                  </tbody>
+                  <tbody id="tblVehicleBody"></tbody>
                 </table>
               </div>
             </div>
@@ -355,9 +350,10 @@
                 <div style="overflow-x: auto;">
                   <div class="equipment">
                     <h2>Manage Equipment</h2>
+                    <!-- <button type="button" class="btn btn-success" id="btnview" style="margin-left: 50%;"><i><img src="assets/icons/view.png" alt=""></i></button> -->
                     <button type="button" class="btn btn-success" id="btnequipmentAdd"><i><img src="assets/icons/add.png" alt=""></i></button>
                   </div>
-                  <div class="modal" id="equipmentModal" tabindex="-1">
+                  <div class="modal fade" id="equipmentModal" tabindex="-1">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -375,13 +371,13 @@
                           </div>
                           <div class="form-group mt-2">
                             <label>Equipment Type<br><br></label>
-                            <input type="radio" id="Eq_Electrical" name="Eq_type" value="Electrical"> Electrical
-                            <input type="radio" id="Eq_Mechanical" name="Eq_type" value="Mechanical"> Mechanical
+                            <input type="radio" id="Eq_Electrical" name="Eq_type" value="ELECTRICAL"> Electrical
+                            <input type="radio" id="Eq_Mechanical" name="Eq_type" value="MECHANICAL"> Mechanical
                           </div>
                           <div class="form-group mt-2">
                             <label>Equipment Status<br><br></label>
-                            <input type="radio" id="Eq_Available" name="Eq_status" value="Available"> Available
-                            <input type="radio" id="Eq_UnAvailable" name="Eq_status" value="Unavailable"> Unavailable
+                            <input type="radio" id="Eq_Available" name="Eq_status" value="AVAILABLE"> Available
+                            <input type="radio" id="Eq_UnAvailable" name="Eq_status" value="NOT_AVAILABLE"> Unavailable
                           </div>
                         </div>
                         <div class="modal-footer">
@@ -460,8 +456,8 @@
                     <!-- First Column -->
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label class="mt-2">Staff Id</label>
-                        <input class="form-control mt-2" id="txtstaffid" type="text">
+                        <label class="mt-2">Email</label>
+                        <input class="form-control mt-2" id="txtemail" type="email">
                       </div>
                       <div class="form-group">
                         <label class="mt-2">First Name</label>
@@ -480,25 +476,35 @@
                       </div>
                       <div class="form-group">
                         <label class="mt-2">Gender</label><br>
-                        <input type="radio" id="genderMale" name="gender" value="Male"> MALE
-                        <input type="radio" id="genderFemale" name="gender" value="Female"> FEMALE
+                        <input type="radio" id="genderMale" name="GENDER" value="MALE"> MALE
+                        <input type="radio" id="genderFemale" name="GENDER" value="FEMALE"> FEMALE
                         <!-- <input class="form-control mt-2" id="txtgender" type="text"> -->
                       </div>
                       <div class="form-group">
                         <label class="mt-4">Address</label>
-                        <input class="form-control mt-2" id="txtaddress1" type="text">
+                        <input class="form-control mt-2" id="txtaddress" type="text">
                       </div>
                     </div>
                     <!-- Third Column -->
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="mt-2">Contact No.</label>
-                        <input class="form-control mt-2" id="txtcontact" type="number">
+                        <input class="form-control mt-2" id="txtcontact" type="text">
                       </div>
                       <div class="form-group">
-                        <label class="mt-2">Email</label>
-                        <input class="form-control mt-2" id="txtemail" type="email">
+                        <label class="mt-2">Joined Date</label>
+                        <input class="form-control mt-2" id="txtdate" type="date">
                       </div>
+                      <!-- <div class="form-group">
+                        <label class="mt-2">Role</label>
+                        <select id="signup-role">
+                          <option value="" disabled selected>Select your role</option>
+                          <option value="administer">ADMINISTER</option>
+                          <option value="manager">MANAGER</option>
+                          <option value="scientist">SCIENTIST</option>
+                      </select>
+                      </div> -->
+
                       <!-- <button type="button" class="btn btn-primary" id="btnnext" style="margin-top: 20%; margin-left: 90%;">Next</button> -->
                       <button type="button" class="btn btn-info" id="btnnext" style="margin-top: 15%; margin-left: 80%;">Save</button>
 
@@ -522,8 +528,8 @@
                           <label for="vehicleNumber">Fuel Type</label>
                           <input type="text" id="txtfuel" class="form-control">
                           <br>
-                          <label for="vehicleNumber">Status</label>
-                          <input type="text" id="txtstatus" class="form-control">
+                          <!-- <label for="vehicleNumber">Status</label>
+                          <input type="text" id="txtstatus" class="form-control"> -->
                           <br>
                           <label for="vehicleNumber">Remark</label>
                           <input type="text" id="txtremark" class="form-control">
@@ -547,8 +553,8 @@
                         <div class="modal-body">
                           <form id="updateStaffForm">
                             <div class="mb-3">
-                              <label for="staffId" class="form-label">Staff ID</label>
-                              <input type="text" class="form-control" id="staffId" disabled>
+                              <label for="email" class="form-label">Email</label>
+                              <input type="email" class="form-control" id="email">
                             </div>
                             <div class="mb-3">
                               <label for="firstName" class="form-label">First Name</label>
@@ -571,16 +577,16 @@
                               </select>
                             </div>
                             <div class="mb-3">
+                              <label for="joindate" class="form-label">Joindate</label>
+                              <textarea class="form-control" id="joindate"></textarea>
+                            </div>
+                            <div class="mb-3">
                               <label for="address" class="form-label">Address</label>
                               <textarea class="form-control" id="address"></textarea>
                             </div>
                             <div class="mb-3">
                               <label for="contactNo" class="form-label">Contact Number</label>
                               <input type="text" class="form-control" id="contactNo">
-                            </div>
-                            <div class="mb-3">
-                              <label for="email" class="form-label">Email</label>
-                              <input type="email" class="form-control" id="email">
                             </div>
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                           </form>
@@ -596,14 +602,13 @@
                 <table id="tblStaff" class="table" style="width: 92%; margin-top: 50px;">
                   <thead>
                     <tr>
-                      <th scope="col">Staff Id</th>
+                      <th scope="col">Email</th>
                       <th scope="col">First Name</th>
                       <th scope="col">Last Name</th>
                       <th scope="col">Designation</th>
                       <th scope="col">Gender</th>
                       <th scope="col">Address</th>
                       <th scope="col">Contact No</th>
-                      <th scope="col">Email</th>
                       <th scope="col"></th>
                     </tr>
                   </thead>
@@ -626,16 +631,96 @@
                     style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #3b06fa; color: white; border: none; border-radius: 4px; flex-shrink: 0;border-radius: 50px 50px 50px 50px;">
                     <i><img src="assets/icons/search.png" alt="" width="30px"></i>
                 </button>
-            </div>
+              </div>
         
             <!-- Table -->
-            <div style="overflow-x: auto;">
-                <table class="table table-success table-striped" style="width: 92%; margin-top: 20px;">
+              <div style="overflow-x: auto;">
+                  <table class="table table-success table-striped" style="width: 92%; margin-top: 20px;">
+                      <thead>
+                          <tr>
+                              <th scope="col" id="tblDate">Date</th>
+                              <th scope="col" id="tblEmail">Email</th>
+                              <th scope="col" id="tblUpdate">Monitoring Log Id</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+            <div class="container my-5" id="duties">
+              
+              <div class="duty">
+                <h2>Manage Duties</h2>
+                <button type="button" class="btn btn-success" id="btnDutyAdd"><i><img src="assets/icons/add.png" alt=""></i></button>
+              </div>
+              <!-- Row for two columns -->
+              <!-- Modal Structure -->
+            <div class="modal fade" id="dutyModal" tabindex="-1" aria-labelledby="dutyModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="dutyModalLabel">Manage Duties</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+              <!-- Modal Body -->
+              <div class="modal-body">
+                <!-- Form inside Modal -->
+                <form>
+                  <div class="row">
+                    <!-- First Column -->
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="mt-2">Date</label>
+                        <input class="form-control mt-2" id="txtdutydate" type="date">
+                      </div>
+                      <div class="form-group">
+                        <label class="mt-2">Time</label>
+                        <input class="form-control mt-2" id="txttime" type="time">
+                      </div>
+                    </div>
+              <!-- Second Column -->
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="mt-2">Field ID</label>
+                        <select class="form-control mt-2" id="field-id">
+                          <option value="" disabled selected>Select Field</option>
+                              <!-- Dynamic options here -->
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="mt-2">Staff Email</label>
+                        <select class="form-control mt-2" id="staff-email">
+                          <option value="" disabled selected>Select Email</option>
+                            <!-- Dynamic options here -->
+                        </select>
+                        </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-outline-success" id="btnDutySave">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="overflow-x: auto;">
+                <table class="table table-success table-striped" style="width: 92%; margin-top: 5%;">
                     <thead>
                         <tr>
-                            <th scope="col" id="tblDate">Date</th>
-                            <th scope="col" id="tblEmail">Email</th>
-                            <th scope="col" id="tblUpdate">Monitoring Log Id</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Field Id</th>
+                            <th scope="col">Staff Email</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -645,22 +730,23 @@
                     </tbody>
                 </table>
             </div>
-          
+            </div>
+            
     </main>
     <script src="Js/bootstrap.bundle.min.js"></script>
-    <script src="sweetalert2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+    <!-- <script src="sweetalert2.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script> -->
     <script src="assets/jquery-3.7.1.min.js"></script>
-    <script src="./js/jquery.dataTables.min.js"></script>
-    <script src="./js/dataTables.bootstrap5.min.js"></script>
-    <script src="./js/script.js"></script>
+    <!-- <script src="./js/jquery.dataTables.min.js"></script> -->
+    <!-- <script src="./js/dataTables.bootstrap5.min.js"></script> -->
+    <!-- <script src="./js/script.js"></script> -->
     <script src="Js/navigaton.js"></script>
     <script src="Js/controller/cropController.js"></script>
     <script src="Js/controller/staffController.js"></script>
     <script src="Js/controller/equipmentController.js"></script>
-
+    <script src="Js/controller/dutyController.js"></script>
     <script src="Js/controller/validations/commonFunction.js"></script>
     <script src="Js/controller/validations/cropValidation.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
   </body>
 </html>

@@ -25,13 +25,11 @@
 //         }
 //     }
 
-const sections = ['home', 'profile', 'crop', 'field', 'vehicle', 'equipment', 'staff', 'records'];
+const sections = ['profile', 'crop', 'field', 'vehicle', 'equipment', 'staff', 'records','duties'];
 
 // Initially hide all sections, then show the 'home' section by default
 document.addEventListener("DOMContentLoaded", () => {
-    sections.forEach(section => document.getElementById(section).style.display = 'none');
-    // Set 'home' section to visible by default
-    document.getElementById('home').style.display = 'block';
+        sections.forEach(section => document.getElementById(section).style.display = 'none');
 });
 
 function showSection(selectedSection) {

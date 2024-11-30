@@ -2,32 +2,36 @@ const staff = {};
 const staffDB = [];
 
 const vehicle = {};
-var vehicleDB = [];
+const vehicleDB = [];
 
 getAllStaff()
 // staff save
 $("#btnnext").click(function(){
-    let staffId = $('#txtstaffid').val();
+    let email = $('#txtemail').val();
     let firstName = $('#txtfirstname').val();
     let lastName = $('#txtlastname').val();
     let designation = $('#txtdesignation').val();
-    let gender = $("input[name='gender']:checked").val();
-    let addressline1 = $('#txtaddress1').val();
+    let gender = $("input[name='GENDER']:checked").val();
+    let addressline = $('#txtaddress').val();
     let contact = $('#txtcontact').val();
-    let email = $('#txtemail').val();
+    let join = $("#txtdate").val()
+    // let role = $('#staff-role').val();
+    
 
     const newStaff = Object.assign({},staff);
-    newStaff.staffId = staffId;
+    newStaff.email = email;
     newStaff.firstName = firstName;
     newStaff.lastName = lastName;   
     newStaff.designation = designation;
     newStaff.gender = gender;
-    newStaff.addressline1 = addressline1;
-    newStaff.contact = contact;
-    newStaff.email = email;
+    newStaff.address = addressline;
+    newStaff.contactNo = contact;
+    newStaff.joinedDate = join;
+    // newStaff.role = role;
+    
 
     console.log(newStaff);
-    if(!checkExistStaff(newStaff.staff)){
+    if(!checkExistStaff(newStaff.email)){
         $.ajax({
             url: "http://localhost:5050/propMonitoring/api/v1/staffs",
            type: "POST",
@@ -36,8 +40,9 @@ $("#btnnext").click(function(){
            success: (res) => {
                console.log(JSON.stringify(res))
                console.log("staff saved successfully")
-               getAllStaff()
+               //getAllStaff()
                clearAllStaff()
+               $('#modalStaffId').text(newStaff.email);
                $('#addVehicleModal').modal('show');
                
            },
@@ -55,85 +60,89 @@ $("#btnnext").click(function(){
     }
     
 });
-// vehicle save
-$("#btnsavevehicle").click(function(){
-    let licene = $("#txtplate").val();
-    let Vcategory = $("#txtVcategory").val()
-    let fuel = $("#txtfuel").val()
-    let status = $("#txtstatus").val()
-    let remarks = $("#txtremark").val()
-    let staffId = $('#modalStaffId').text();
 
-    const newVehicle = Object.assign({},vehicle);
-    newVehicle.licene = licene;
-    newVehicle.Vcategory = Vcategory;
-    newVehicle.fuel = fuel;
-    newVehicle.status = status;
-    newVehicle.remarks = remarks;
-    newVehicle.Vstaff = staffId;
+$("#btnsavevehicle").click(function () {
+    let email = $('#modalStaffId').text(); // Staff email
+    let licensePlateNo = $("#txtplate").val();
+    let vehicleCategory = $("#txtVcategory").val();
+    let fuelType = $("#txtfuel").val();
+    let remarks = $("#txtremark").val();
 
-    console.log(newVehicle);
-    if(!checkExistVehicle(newVehicle.licene)){
-        $.ajax({
-            // url: "http://localhost:5050/propMonitoring/api/v1/vehicles",
-            type: "POST",
-            data: JSON.stringify(newVehicle),
-            headers: {"Content-Type": "application/json"},
-            success: (res) => {
-                console.log(JSON.stringify(res))
-                console.log("vehicle saved successfully")
-                
-                // Swal.fire({
-                //     title: "Saved Successfully",
-                //     text: "",
-                //     icon: "success"
-                // })
-                $('#addVehicleModal').modal('hide');
-                // get All crops
-
-            },
-            error: (res) => {
-                console.error(res)
-                Swal.fire({
-                    title: "Oops Failed",
-                    text: "Invalid Vehicle type",
-                    icon: "error"
-                })
-            }
-        })
-    }else{
-        console.log("vehicle with id already added")
-    
+    // Validate inputs
+    if (!email || !licensePlateNo || !vehicleCategory || !fuelType) {
+        alert("Please fill all required fields.");
+        return;
     }
+
+    // Create the vehicle object
+    const newVehicle = {
+        licensePlateNo,
+        vehicleCategory,
+        fuelType,
+        remarks,
+        staffMemberDetails: {
+            email: email 
+        }
+    };
+
+    console.log("Payload being sent to server:", newVehicle);
+
+    // Send AJAX request
+    $.ajax({
+        url: "http://localhost:5050/propMonitoring/api/v1/vehicles",
+        type: "POST",
+        data: JSON.stringify(newVehicle),
+        headers: { "Content-Type": "application/json" },
+        success: function (res) {
+            alert("Vehicle saved successfully.");
+            console.log("Vehicle Data:", vehicleDB);
+            $('#addVehicleModal').modal('hide');
+            getAllStaff()
+        },
+        error: function (xhr) {
+            console.error("Error while saving vehicle:", xhr.responseText);
+            alert(`Failed to save vehicle. Error: ${xhr.responseText}`);
+        }
+    });
 });
 
+
+
+// Check if staff exists
+function checkExistStaff(email) {
+    return staffDB.some(staff => staff.email === email);
+}
+
+// Check if vehicle exists
+function checkExistVehicle(licensePlateNo) {
+    return vehicleDB.some(vehicle => vehicle.licensePlateNo === licensePlateNo);
+}
+
+
+
 $("#btnSkip").click(function(){
-    // Swal.fire({
-    //     title: "Staff Saved Successfully",
-    //     text: "",
-    //     icon: "success"
-    // });
-    alert("saved")
+    alert("Staff saved")
+    getAllStaff()
     $('#addVehicleModal').modal('hide');
 });
 
-function checkExistStaff(staffId){
-    for(let i = 0; i < staffDB.length; i++){
-        if(staff == staffDB[i].staffId){
-            return true;
-        }
-    }
-    return false;
-}
+// function checkExistStaff(email){
+//     for(let i = 0; i < staffDB.length; i++){
+//         if(staff == staffDB[i].email){
+//             return true;
+//         }
+//     }
+//     return false;
+// }
 
-function checkExistVehicle(licene){
-    for(let i = 0; i < vehicleDB.length; i++){
-        if(vehicle == vehicleDB[i].licene){
-            return true;
-        }
-    }
-    return false;
-}
+// function checkExistVehicle(licensePlateNo){
+//     for(let i = 0; i < vehicleDB.length; i++){
+//         if(vehicle == vehicleDB[i].licensePlateNo){
+//             return true;
+//         }
+//     }
+//     return false;
+// }
 function clearAllStaff(){
     $("#txtplate").val('');
     $("#txtVcategory").val('')
@@ -144,7 +153,7 @@ function clearAllStaff(){
     $('#txtlastname').val('')
     $('#txtdesignation').val('')
     $("input[name='gender']:checked").val('')
-    $('#txtaddress1').val('')
+    $('#txtaddress').val('')
     $('#txtcontact').val('')
     $('#txtemail').val('')
 }
@@ -162,22 +171,22 @@ function getAllStaff() {
         success: function(staffs) {
             for (let i = 0; i < staffs.length; i++) {
                 let tr = $(`<tr>
-                                <td>${staffs[i].staffId}</td>
+                                <td>${staffs[i].email}</td>
                                 <td>${staffs[i].firstName}</td>
                                 <td>${staffs[i].lastName}</td>
                                 <td>${staffs[i].designation}</td>
                                 <td>${staffs[i].gender}</td>
                                 <td>${staffs[i].address}</td>
                                 <td>${staffs[i].contactNo}</td>
-                                <td>${staffs[i].email}</td>
-                                <td><button class="btn btn-warning updateBtn" data-staff-id="${staffs[i].staffId}">Update</button></td>  
-                                <td><button class="btn btn-danger deleteBtn" data-staff-id="${staffs[i].staffId}">Delete</button></td>  
+                                
+                                <td><button class="btn btn-warning updateBtn" data-staff-id="${staffs[i].email}">Update</button></td>  
+                                <td><button class="btn btn-danger deleteBtn" data-staff-id="${staffs[i].email}">Delete</button></td>  
                             </tr>`);
                 tBody.append(tr);  // Append the new row to the table
             }
 
             $(".deleteBtn").click(function() {
-                let staffId = $(this).data("staff-id");
+                let email = $(this).data("staff-id");
             
                 // Show a simple confirmation dialog
                 let confirmDelete = window.confirm("Are you sure you want to delete this staff member?");
@@ -185,7 +194,7 @@ function getAllStaff() {
                 if (confirmDelete) {
                     // Proceed to delete the staff
                     $.ajax({
-                        url: `http://localhost:5050/propMonitoring/api/v1/staffs/${staffId}`,
+                        url: `http://localhost:5050/propMonitoring/api/v1/staffs/${email}`,
                         type: "DELETE",
                         success: function(response) {
                             alert("The staff member has been deleted.");
@@ -208,22 +217,24 @@ function getAllStaff() {
             
 
             // Add event listener for the update button
-            $(".updateBtn").click(function() {
-                let staffId = $(this).data("staff-id");
-                let staff = staffs.find(s => s.staffId === staffId);
-
-                // Populate the modal fields with the staff data
-                $("#staffId").val(staff.staffId);
-                $("#firstName").val(staff.firstName);
-                $("#lastName").val(staff.lastName);
-                $("#designation").val(staff.designation);
-                $("#gender").val(staff.gender);
-                $("#address").val(staff.address);
-                $("#contactNo").val(staff.contactNo);
-                $("#email").val(staff.email);
-
-                // Show the modal
-                $('#updateModal').modal('show');
+            $(".updateBtn").click(function () {
+                let email = $(this).data("staff-id");
+                let staff = staffs.find(s => s.email === email);
+        
+                if (staff) {
+                    // Populate update modal fields
+                    $("#email").val(staff.email);
+                    $("#firstName").val(staff.firstName);
+                    $("#lastName").val(staff.lastName);
+                    $("#designation").val(staff.designation);
+                    $("#gender").val(staff.gender);
+                    $("#joindate").val(staff.joinedDate);
+                    $("#address").val(staff.address);
+                    $("#contactNo").val(staff.contactNo);
+        
+                    // Show the modal
+                    $('#updateModal').modal('show');
+                }
             });
         },
         error: function(xhr, status, error) {
@@ -238,37 +249,30 @@ $("#updateStaffForm").submit(function(event) {
 
     // Get the updated staff details from the form inputs
     let updatedStaff = {
-        staffId: $("#staffId").val(),
+        email: $("#email").val(),
         firstName: $("#firstName").val(),
         lastName: $("#lastName").val(),
         designation: $("#designation").val(),
         gender: $("#gender").val(),
+        joinedDate:$("#joindate").val(),
         address: $("#address").val(),
-        contactNo: $("#contactNo").val(),
-        email: $("#email").val()
+        contactNo: $("#contactNo").val()
+        
     };
 
     // Send the updated data to the server
     $.ajax({
-        url: `http://localhost:5050/propMonitoring/api/v1/staffs/${updatedStaff.staffId}`,
+        url: `http://localhost:5050/propMonitoring/api/v1/staffs/${updatedStaff.email}`,
         type: "PUT",
         contentType: "application/json",
         data: JSON.stringify(updatedStaff),
         success: function(response) {
-            Swal.fire({
-                title: "Success",
-                text: "Staff details updated successfully.",
-                icon: "success"
-            });
+            alert("updated staff")
             $('#updateModal').modal('hide');
             getAllStaff();  // Reload the staff data
         },
         error: function(xhr, status, error) {
-            Swal.fire({
-                title: "Error",
-                text: "Failed to update staff details.",
-                icon: "error"
-            });
+            alert("cannot update staff")
         }
     });
 });

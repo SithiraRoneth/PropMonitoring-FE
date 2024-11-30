@@ -22,6 +22,8 @@ $("#btnCropSave").click(function () {
     formData.append("season", season);
 
     if(!checkExistCrop(cropCode)){
+        const isSaved = confirm("Do you want to save this crop ?")
+        if(isSaved){
         $.ajax({
             url: "http://localhost:5050/propMonitoring/api/v1/crops",
             type: "POST",
@@ -30,6 +32,7 @@ $("#btnCropSave").click(function () {
             contentType: false,
             success: (res) => {
                 console.log("Saved successfully:", res);
+                getAllCrops()
             },
             
             error: (res) => {
@@ -40,7 +43,8 @@ $("#btnCropSave").click(function () {
                     icon: "error",
                 });
             },
-        });
+            });
+        }
     }else{
         alert("Oops! already exisit crop code")
     }
