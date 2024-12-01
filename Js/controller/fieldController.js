@@ -1,51 +1,62 @@
 const field = {}
 const fieldDB = []
+getAllFields()
 // Save a Field
 $("#btnFieldSave").click(function () {
-    let fieldCode = $('#txtfieldcode').val();
-    let fieldName = $('#txtfieldname').val();
-    let fieldLocation = $('#txtfieldlocation').val();
-    let extendSizeOfTheField = $('#txtsize').val();
-    let fieldImage1 = $('#txtimage1')[0].files[0];
-    let fieldImage2 = $('#txtimage2')[0].files[0];
+    let field_code = $('#txtfieldcode').val(); // Matches @RequestPart("fieldCode")
+    let field_name = $('#txtfieldname').val(); // Matches @RequestPart("fieldName")
+    let field_location = $('#txtfieldlocation').val(); // Matches @RequestPart("fieldLocation")
+    let extend_size_of_the_field = $('#txtsize').val(); // Matches @RequestPart("extendSizeOfTheField")
+    let field_image1 = $('#txtimage1')[0].files[0]; // Matches @RequestPart("fieldImage1")
+    let field_image2 = $('#txtimage2')[0].files[0]; // Matches @RequestPart("fieldImage2")
 
-    let formData = new FormData();
-    formData.append("fieldCode", fieldCode);
-    formData.append("fieldName", fieldName);
-    formData.append("location", fieldLocation);
-    formData.append("size", extendSizeOfTheField);
-    formData.append("fieldImage1", fieldImage1);
-    formData.append("fieldImage2", fieldImage2);
-
-    if (!checkExistField(fieldCode)) {
-        const isSaved = confirm("Do you want to save this field?");
-        if (isSaved) {
-            $.ajax({
-                url: "http://localhost:5050/propMonitoring/api/v1/fields",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (res) {
-                    console.log("Saved successfully:", res);
-                    getAllFields();
-                },
-                error: function (res) {
-                    console.error("Save failed:", res);
-                    error("Save failed")
-                }
-            });
-        }
-    } else {
-        alert("Oops! Field code already exists.");
+    // Validate required fields
+    if (!field_code || !field_name || !field_location || !extend_size_of_the_field) {
+        alert("All fields except images are required.");
+        return;
     }
 
-    clearAllField();
-    $('#txtfieldcode').focus();
-    getAllFields();
+    // Prepare FormData
+    let formData = new FormData();
+    formData.append("fieldCode", field_code);
+    formData.append("fieldName", field_name);
+    formData.append("fieldLocation", field_location);
+    formData.append("extendSizeOfTheField", extend_size_of_the_field);
+
+    if (field_image1) {
+        formData.append("fieldImage1", field_image1);
+    }
+    if (field_image2) {
+        formData.append("fieldImage2", field_image2);
+    }
+
+    console.log("FormData content:");
+    for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+    }
+
+    // AJAX Request
+    $.ajax({
+        url: "http://localhost:5050/propMonitoring/api/v1/fields",
+        type: "POST",
+        data: formData,
+        processData: false, 
+        contentType: false, 
+        success: function (response) {
+            console.log("Field saved successfully:", response);
+            getAllFields();
+        },
+        error: function (xhr, status, error) {
+            console.error("Error saving field:", xhr.responseText);
+            alert(`Error: ${xhr.responseText || error}`);
+        }
+    });
+    clearAllField()
+    getAllFields
 });
 
-// Update a Field
+
+
 $("#btnFieldUpdate").click(function () {
     if (selectedFieldIndex !== null) {
         let fieldCode = $('#txtfieldcode').val();
@@ -58,11 +69,21 @@ $("#btnFieldUpdate").click(function () {
         let formData = new FormData();
         formData.append("fieldCode", fieldCode);
         formData.append("fieldName", fieldName);
-        formData.append("location", fieldLocation);
-        formData.append("size", extendSizeOfTheField);
+        formData.append("fieldLocation", fieldLocation);
+        formData.append("extendSizeOfTheField", extendSizeOfTheField);
 
-        if (fieldImage1) formData.append("fieldImage1", fieldImage1);
-        if (fieldImage2) formData.append("fieldImage2", fieldImage2);
+        // Include previously saved images if new ones are not provided
+        if (fieldImage1) {
+            formData.append("fieldImage1", fieldImage1);
+        } else {
+            formData.append("usePreviousImage1", true); // Custom flag for the server
+        }
+
+        if (fieldImage2) {
+            formData.append("fieldImage2", fieldImage2);
+        } else {
+            formData.append("usePreviousImage2", true); // Custom flag for the server
+        }
 
         const isConfirmed = confirm("Are you sure you want to update this field?");
         if (isConfirmed) {
@@ -89,6 +110,7 @@ $("#btnFieldUpdate").click(function () {
         getAllFields();
     }
 });
+
 
 // Delete a Field
 $("#btnFieldDelete").click(function () {
@@ -192,6 +214,14 @@ function getAllFields() {
                                 onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';"
                                 style="max-height: 200px; object-fit: cover;"
                             >
+                            <img 
+                                src="data:image/jpeg;base64,${field.fieldImage2}" 
+                                class="card-img-top" 
+                                alt="${field.fieldName}" 
+                                loading="lazy" 
+                                onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';"
+                                style="max-height: 200px; object-fit: cover;"
+                            >
                             <div class="card-body">
                                 <h5 class="card-title">${field.fieldName}</h5>
                                 <p class="card-text">
@@ -210,28 +240,39 @@ function getAllFields() {
             $(".field-card").click(function () {
                 let selectedFieldCode = $(this).data("index");
                 const selectedField = fieldDB.find(field => field.fieldCode === selectedFieldCode);
-
+            
                 if (selectedField) {
                     $('#txtfieldcode').val(selectedField.fieldCode);
                     $('#txtfieldname').val(selectedField.fieldName);
                     $('#txtfieldlocation').val(selectedField.fieldLocation);
                     $('#txtsize').val(selectedField.extendSizeOfTheField);
-
+            
+                    // Handle fieldImage1
                     if (selectedField.fieldImage1) {
                         $('#fieldImagePreview1').attr('src', `data:image/jpeg;base64,${selectedField.fieldImage1}`).show();
+                        $('#txtimage1').val(''); 
+                        $('#txtimage1').attr('placeholder', 'Default Image 1'); 
                     } else {
                         $('#fieldImagePreview1').hide();
+                        $('#txtimage1').val('');
+                        $('#txtimage1').attr('placeholder', 'No Image Provided');
                     }
-
+            
+                    // Handle fieldImage2
                     if (selectedField.fieldImage2) {
                         $('#fieldImagePreview2').attr('src', `data:image/jpeg;base64,${selectedField.fieldImage2}`).show();
+                        $('#txtimage2').val('');
+                        $('#txtimage2').attr('placeholder', 'Default Image 2'); 
                     } else {
                         $('#fieldImagePreview2').hide();
+                        $('#txtimage2').val('');
+                        $('#txtimage2').attr('placeholder', 'No Image Provided');
                     }
-
+            
                     selectedFieldIndex = fieldDB.indexOf(selectedField);
                 }
             });
+            
         },
         error: function (xhr, status, error) {
             console.error("Failed to fetch fields: ", error);
