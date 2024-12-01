@@ -15,7 +15,7 @@ $("#btnnext").click(function(){
     let addressline = $('#txtaddress').val();
     let contact = $('#txtcontact').val();
     let join = $("#txtdate").val()
-    // let role = $('#staff-role').val();
+    let role = $('#role').val();
     
 
     const newStaff = Object.assign({},staff);
@@ -27,7 +27,7 @@ $("#btnnext").click(function(){
     newStaff.address = addressline;
     newStaff.contactNo = contact;
     newStaff.joinedDate = join;
-    // newStaff.role = role;
+    newStaff.role = role;
     
 
     console.log(newStaff);
@@ -178,7 +178,7 @@ function getAllStaff() {
                                 <td>${staffs[i].gender}</td>
                                 <td>${staffs[i].address}</td>
                                 <td>${staffs[i].contactNo}</td>
-                                
+                                <td>${staffs[i].role}</td>
                                 <td><button class="btn btn-warning updateBtn" data-staff-id="${staffs[i].email}">Update</button></td>  
                                 <td><button class="btn btn-danger deleteBtn" data-staff-id="${staffs[i].email}">Delete</button></td>  
                             </tr>`);
@@ -231,6 +231,7 @@ function getAllStaff() {
                     $("#joindate").val(staff.joinedDate);
                     $("#address").val(staff.address);
                     $("#contactNo").val(staff.contactNo);
+                    $("#role").val(staff.role);
         
                     // Show the modal
                     $('#updateModal').modal('show');
@@ -256,7 +257,8 @@ $("#updateStaffForm").submit(function(event) {
         gender: $("#gender").val().toUpperCase(),  // Convert gender to uppercase
         joinedDate: $("#joindate").val(),
         address: $("#address").val(),
-        contactNo: $("#contactNo").val()
+        contactNo: $("#contactNo").val(),
+        role: $("#role").val().toUpperCase()
     };
 
     // Send the updated data to the server
