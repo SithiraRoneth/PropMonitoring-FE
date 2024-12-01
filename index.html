@@ -458,14 +458,18 @@
                       <div class="form-group">
                         <label class="mt-2">Email</label>
                         <input class="form-control mt-2" id="txtemail" type="email">
+                        <small id="invalidEmail" class="text-danger">Invalid Email</small>
                       </div>
                       <div class="form-group">
                         <label class="mt-2">First Name</label>
                         <input class="form-control mt-2" id="txtfirstname" type="text">
+                        <small id="invalidStaffName" class="text-danger">Invalid Name</small>
+                        
                       </div>
                       <div class="form-group">
                         <label class="mt-2">Last Name</label>
                         <input class="form-control mt-2" id="txtlastname" type="text">
+                        <small id="invalidLast" class="text-danger">Invalid Name</small>
                       </div>
                     </div>
                     <!-- Second Column -->
@@ -483,6 +487,7 @@
                       <div class="form-group">
                         <label class="mt-4">Address</label>
                         <input class="form-control mt-2" id="txtaddress" type="text">
+                        <small id="invalidAddress" class="text-danger">Invalid Address</small>
                       </div>
                     </div>
                     <!-- Third Column -->
@@ -490,6 +495,7 @@
                       <div class="form-group">
                         <label class="mt-2">Contact No.</label>
                         <input class="form-control mt-2" id="txtcontact" type="text">
+                        <small id="invalidContact" class="text-danger">Invalid Contact</small>
                       </div>
                       <div class="form-group">
                         <label class="mt-2">Joined Date</label>
@@ -748,6 +754,7 @@
     <script src="Js/controller/dutyController.js"></script>
     <script src="Js/controller/validations/commonFunction.js"></script>
     <script src="Js/controller/validations/cropValidation.js"></script>
+    <script src="Js/controller/validations/staffValidation.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
   </body>
 </html>
