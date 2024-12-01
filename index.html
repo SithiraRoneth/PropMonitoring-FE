@@ -498,19 +498,18 @@
                         <small id="invalidContact" class="text-danger">Invalid Contact</small>
                       </div>
                       <div class="form-group">
+                        <label class="mt-2" for="role">Role</label>
+                        <select id="role" name="ROLE" class="form-control">
+                          <option value="ADMINISTRATOR">Admin</option>
+                          <option value="MANAGER">Manager</option>
+                          <option value="SCIENTIST">Scientist</option>
+                          <option value="OTHER">Other</option>
+                        </select>
+                      </div>     
+                      <div class="form-group">
                         <label class="mt-2">Joined Date</label>
                         <input class="form-control mt-2" id="txtdate" type="date">
                       </div>
-                      <!-- <div class="form-group">
-                        <label class="mt-2">Role</label>
-                        <select id="signup-role">
-                          <option value="" disabled selected>Select your role</option>
-                          <option value="administer">ADMINISTER</option>
-                          <option value="manager">MANAGER</option>
-                          <option value="scientist">SCIENTIST</option>
-                      </select>
-                      </div> -->
-
                       <!-- <button type="button" class="btn btn-primary" id="btnnext" style="margin-top: 20%; margin-left: 90%;">Next</button> -->
                       <button type="button" class="btn btn-info" id="btnnext" style="margin-top: 15%; margin-left: 80%;">Save</button>
 
@@ -615,6 +614,7 @@
                       <th scope="col">Gender</th>
                       <th scope="col">Address</th>
                       <th scope="col">Contact No</th>
+                      <th scope="col">Role</th>
                       <th scope="col"></th>
                     </tr>
                   </thead>
