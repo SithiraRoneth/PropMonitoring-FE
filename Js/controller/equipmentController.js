@@ -34,6 +34,7 @@ $("#btnSaveEquipment").click(function () {
       success: (res) => {
         console.log(JSON.stringify(res));
         getAllEquipment();
+        $('#equipmentModal').modal('hide');
       },
       error: (res) => {
         console.error(res);
