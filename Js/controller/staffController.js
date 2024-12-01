@@ -253,11 +253,10 @@ $("#updateStaffForm").submit(function(event) {
         firstName: $("#firstName").val(),
         lastName: $("#lastName").val(),
         designation: $("#designation").val(),
-        gender: $("#gender").val(),
-        joinedDate:$("#joindate").val(),
+        gender: $("#gender").val().toUpperCase(),  // Convert gender to uppercase
+        joinedDate: $("#joindate").val(),
         address: $("#address").val(),
         contactNo: $("#contactNo").val()
-        
     };
 
     // Send the updated data to the server
@@ -267,14 +266,15 @@ $("#updateStaffForm").submit(function(event) {
         contentType: "application/json",
         data: JSON.stringify(updatedStaff),
         success: function(response) {
-            alert("updated staff")
+            alert("Staff updated successfully");
             $('#updateModal').modal('hide');
-            getAllStaff();  // Reload the staff data
+            getAllStaff();  // Reload staff data
         },
         error: function(xhr, status, error) {
-            alert("cannot update staff")
+            alert("Failed to update staff: " + xhr.responseText);
         }
     });
 });
+
 
 
