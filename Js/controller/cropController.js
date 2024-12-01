@@ -104,7 +104,7 @@ $("#btnCropUpdate").click(function () {
 
         clearAllCrop(); 
         selectedCropIndex = null; 
-        getAllCrops()
+        // getAllCrops()
     }
 });
 
